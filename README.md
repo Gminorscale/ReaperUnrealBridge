@@ -20,7 +20,6 @@ When a weapon (or any actor) fires in Unreal, the plugin tells Reaper to play a 
 - **Unreal Engine 5.5+** (tested on 5.5, 5.6, and 5.7)
 - **Plugins** (enabled automatically when this plugin is enabled):
   - **AudioCapture** — Engine plugin for microphone/virtual-device capture
-  - **OSC** — Engine plugin for Open Sound Control protocol
 - **Reaper** (or any DAW that accepts OSC) running on the same machine or network
 - **Virtual audio device** (e.g. VB-Audio Virtual Cable) to route Reaper's output back to Unreal
 
@@ -30,6 +29,39 @@ When a weapon (or any actor) fires in Unreal, the plugin tells Reaper to play a 
 2. **Delete** any `Intermediate/` and `Binaries/` folders inside the copied plugin (these are project-specific build artifacts and must be regenerated).
 3. Open or restart the Unreal Editor. The plugin will be detected and built automatically.
 4. Verify the plugin is enabled: Edit → Plugins → search "ReaperUnrealBridge".
+
+### Precompiling binaries (for distribution)
+
+To avoid the "Missing Modules" / "Please build through your IDE" popup in **Blueprint-only** (or other) projects, you can ship precompiled binaries so the engine loads the plugin without compiling.
+
+**Option A — Build from a C++ project (simplest)**
+
+1. Use (or create) any **C++** Unreal project with the same engine version you want to support (e.g. 5.5, 5.6).
+2. Copy the entire `ReaperUnrealBridge` plugin folder into that project’s `Plugins/` directory.
+3. Open the project in the editor once so the solution is generated, then close the editor.
+4. Open the `.sln` in Visual Studio and build the **Development Editor** (or **Shipping**) configuration.
+5. After a successful build, the plugin’s binaries are in:
+   - `Plugins/ReaperUnrealBridge/Binaries/Win64/` (Windows)
+   - (Other platforms under `Binaries/<Platform>/`.)
+6. For distribution: copy the whole `ReaperUnrealBridge` folder (including `Binaries/`) to the target project’s `Plugins/` folder. In the **distributed** copy only, set `"Installed": true` in `ReaperUnrealBridge.uplugin` so the engine uses the precompiled DLLs and does not try to compile.
+
+**Option B — RunUAT (command-line, good for automation)**
+
+1. From a command prompt, run the Unreal Automation Tool with `BuildPlugin` (paths below are examples; adjust to your engine and plugin locations):
+
+   ```bat
+   "C:\Program Files\Epic Games\UE_5.5\Engine\Build\BatchFiles\RunUAT.bat" BuildPlugin ^
+     -Plugin="Z:\gits\ReaperUnrealBridge\ReaperUnrealBridge.uplugin" ^
+     -Package="Z:\gits\ReaperUnrealBridge\Packaged"
+   ```
+
+2. Replace `UE_5.5` with your engine version and the paths with your actual paths. The `-Package` directory will contain the built plugin (including `Binaries/`).
+3. When you distribute that packaged folder, set `"Installed": true` in the copied `ReaperUnrealBridge.uplugin`.
+
+**Notes**
+
+- Binaries are **engine-version and platform specific**. Build once per engine version (e.g. 5.5, 5.6) and per platform (Win64, etc.) you want to support.
+- Keep `"Installed": false` in your **source** repo so that during development the engine still compiles the plugin when you build from the IDE.
 
 ## Architecture
 
