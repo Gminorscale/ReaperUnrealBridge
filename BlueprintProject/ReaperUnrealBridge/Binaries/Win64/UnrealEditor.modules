@@ -1,8 +1,0 @@
-{
-	"BuildId": "36679577",
-	"Modules": 
-	{
-		"ReaperUnrealBridge": "UnrealEditor-ReaperUnrealBridge.dll",
-		"ReaperUnrealBridgeEditor": "UnrealEditor-ReaperUnrealBridgeEditor.dll"
-	}
-}
