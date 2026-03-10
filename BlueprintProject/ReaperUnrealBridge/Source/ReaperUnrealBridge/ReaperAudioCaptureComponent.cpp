@@ -7,25 +7,17 @@ UReaperAudioCaptureComponent::UReaperAudioCaptureComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-void UReaperAudioCaptureComponent::CopySettingsFromExistingSound(
-	UAudioComponent* SourceAudioComp,
-	bool bPlaySound,
-	bool bCopySoundClass,
-	bool bCopyAttenuation)
+void UReaperAudioCaptureComponent::CopySettingsFromAudioComponent(UAudioComponent* SourceComponent, bool bMuteSource, float& OriginalVolumeMultiplier)
 {
 	if (AudioCaptureTarget)
 	{
-		UReaperAudioHelpers::CopySettingsFromExistingSound(
-			AudioCaptureTarget, SourceAudioComp, bPlaySound, bCopySoundClass, bCopyAttenuation);
+		UReaperAudioHelpers::CopySettingsFromAudioComponent(AudioCaptureTarget, SourceComponent, bMuteSource, OriginalVolumeMultiplier);
 	}
 }
 
-void UReaperAudioCaptureComponent::CopySettingsFromSoundAsset(USoundBase* SoundAsset)
+void UReaperAudioCaptureComponent::RestoreVolumeMultiplier(UAudioComponent* ComponentToRestore, float OriginalVolumeMultiplier)
 {
-	if (AudioCaptureTarget)
-	{
-		UReaperAudioHelpers::CopySettingsFromSoundAsset(AudioCaptureTarget, SoundAsset);
-	}
+	UReaperAudioHelpers::RestoreVolumeMultiplier(ComponentToRestore, OriginalVolumeMultiplier);
 }
 
 void UReaperAudioCaptureComponent::DebugLogAudioSettings(bool bPrintToScreen)

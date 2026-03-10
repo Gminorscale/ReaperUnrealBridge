@@ -1,6 +1,5 @@
 #include "ReaperUnrealBridgeEditor.h"
 #include "K2Node_GetReaperAction.h"
-#include "K2Node_GetOSCCommand.h"
 #include "SGraphNode_ReaperDropdown.h"
 #include "EdGraphUtilities.h"
 
@@ -12,10 +11,6 @@ public:
 		if (UK2Node_GetReaperAction* ReaperNode = Cast<UK2Node_GetReaperAction>(InNode))
 		{
 			return SNew(SGraphNode_ReaperDropdown, ReaperNode);
-		}
-		if (UK2Node_GetOSCCommand* OSCNode = Cast<UK2Node_GetOSCCommand>(InNode))
-		{
-			return SNew(SGraphNode_ReaperDropdown, OSCNode);
 		}
 		return nullptr;
 	}

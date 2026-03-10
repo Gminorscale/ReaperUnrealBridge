@@ -7,14 +7,12 @@
 class UAudioComponent;
 class USceneComponent;
 class USynthComponent;
-class USoundBase;
 class USoundClass;
 class USoundAttenuation;
 
 /**
  * Blueprint function library for Reaper audio helpers.
- * Provides runtime access to SoundClass and Attenuation on SynthComponent,
- * and a "Copy Settings from Existing Sound" flow with optional playback.
+ * Provides runtime access to SoundClass and Attenuation on SynthComponent.
  *
  * The same copy function is also available on UReaperAudioCaptureComponent
  * (target = self, no Target pin).
@@ -26,47 +24,35 @@ class REAPERUNREALBRIDGE_API UReaperAudioHelpers : public UBlueprintFunctionLibr
 
 public:
 	/**
-	 * Copy SoundClass and Attenuation from an existing sound onto a SynthComponent,
-	 * with optional playback of the source sound.
+	 * Copy SoundClass and Attenuation from an AudioComponent onto a SynthComponent.
+	 * Optionally mutes the source component (non-destructive, component-level only).
+	 * Save the returned OriginalVolumeMultiplier and pass it to RestoreVolumeMultiplier on End Play.
 	 *
-	 * @param TargetComponent   SynthComponent to apply settings to (e.g. AudioCapture)
-	 * @param SourceAudioComp   AudioComponent to copy settings from (and optionally play)
-	 * @param bPlaySound        If true, play the source sound after copying
-	 * @param bCopySoundClass   Whether to copy the SoundClass (default: true)
-	 * @param bCopyAttenuation  Whether to copy the Attenuation settings (default: true)
+	 * @param TargetComponent         SynthComponent to apply settings to
+	 * @param SourceComponent         AudioComponent to read SoundClass and Attenuation from
+	 * @param bMuteSource             If true, sets SourceComponent volume multiplier to 0
+	 * @param OriginalVolumeMultiplier Output: volume multiplier before muting (pass to Restore on End Play)
 	 */
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
-		meta = (DisplayName = "Copy Settings from Existing Sound"))
-	static void CopySettingsFromExistingSound(
+		meta = (DisplayName = "Copy Settings from Audio Component"))
+	static void CopySettingsFromAudioComponent(
 		USceneComponent* TargetComponent,
-		UAudioComponent* SourceAudioComp,
-		bool bPlaySound = false,
-		bool bCopySoundClass = true,
-		bool bCopyAttenuation = true);
+		UAudioComponent* SourceComponent,
+		bool bMuteSource,
+		float& OriginalVolumeMultiplier);
 
 	/**
-	 * Copy SoundClass and Attenuation from a Sound asset onto a SynthComponent.
-	 * Use this when you have a USoundBase reference but no AudioComponent.
-	 * Works with SoundCue, SoundWave, MetaSound, etc.
+	 * Restore the volume multiplier on an AudioComponent to the value captured
+	 * by CopySettingsFromSoundAsset. Call this on End Play.
 	 *
-	 * @param TargetComponent   SynthComponent to apply settings to
-	 * @param SoundAsset        The Sound asset to read SoundClass and Attenuation from
+	 * @param ComponentToRestore      The same AudioComponent that was muted
+	 * @param OriginalVolumeMultiplier The value returned by CopySettingsFromSoundAsset
 	 */
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
-		meta = (DisplayName = "Copy Settings from Sound Asset"))
-	static void CopySettingsFromSoundAsset(
-		USceneComponent* TargetComponent,
-		USoundBase* SoundAsset);
-
-	/**
-	 * Copy SoundClass and Attenuation from a UAudioComponent to a SynthComponent.
-	 * Does not play the source sound.
-	 */
-	static void CopySoundSettingsToSynthComponent(
-		USceneComponent* TargetComponent,
-		UAudioComponent* SourceAudioComp,
-		bool bCopySoundClass = true,
-		bool bCopyAttenuation = true);
+		meta = (DisplayName = "Restore Volume Multiplier to Original Value"))
+	static void RestoreVolumeMultiplier(
+		UAudioComponent* ComponentToRestore,
+		float OriginalVolumeMultiplier);
 
 	/**
 	 * Set the SoundClass on a SynthComponent at runtime.
@@ -85,14 +71,6 @@ public:
 	static void SetAttenuationOnSynthComponent(
 		USceneComponent* TargetComponent,
 		USoundAttenuation* Attenuation);
-
-	/**
-	 * Get the effective SoundClass from a UAudioComponent.
-	 * Returns the SoundClassOverride if set, otherwise the SoundClass from the Sound asset.
-	 */
-	UFUNCTION(BlueprintPure, Category = "ReaperUnrealBridge|Audio",
-		meta = (DisplayName = "Get Effective Sound Class"))
-	static USoundClass* GetEffectiveSoundClass(UAudioComponent* AudioComp);
 
 	/**
 	 * Print the current SoundClass, Attenuation, and spatialization state

@@ -2,7 +2,6 @@
 #include "Engine/Engine.h"
 #include "Components/AudioComponent.h"
 #include "Components/SynthComponent.h"
-#include "Sound/SoundBase.h"
 #include "Sound/SoundClass.h"
 #include "Sound/SoundAttenuation.h"
 
@@ -24,85 +23,55 @@ static USynthComponent* ToSynth(USceneComponent* Comp, const TCHAR* CallerName)
 	return SynthComp;
 }
 
-void UReaperAudioHelpers::CopySoundSettingsToSynthComponent(
+void UReaperAudioHelpers::CopySettingsFromAudioComponent(
 	USceneComponent* TargetComponent,
-	UAudioComponent* SourceAudioComp,
-	bool bCopySoundClass,
-	bool bCopyAttenuation)
+	UAudioComponent* SourceComponent,
+	bool bMuteSource,
+	float& OriginalVolumeMultiplier)
 {
-	USynthComponent* TargetSynthComp = ToSynth(TargetComponent, TEXT("CopySoundSettings"));
-	if (!TargetSynthComp || !SourceAudioComp) return;
+	OriginalVolumeMultiplier = 1.0f;
 
-	if (bCopySoundClass)
-	{
-		USoundClass* EffectiveClass = GetEffectiveSoundClass(SourceAudioComp);
-		if (EffectiveClass)
-			SetSoundClassOnSynthComponent(TargetComponent, EffectiveClass);
-	}
-	if (bCopyAttenuation)
-	{
-		if (SourceAudioComp->bOverrideAttenuation)
-		{
-			TargetSynthComp->bOverrideAttenuation = true;
-			TargetSynthComp->AttenuationOverrides = SourceAudioComp->AttenuationOverrides;
-		}
-		else if (SourceAudioComp->AttenuationSettings)
-		{
-			TargetSynthComp->bOverrideAttenuation = false;
-			TargetSynthComp->AttenuationSettings = SourceAudioComp->AttenuationSettings;
-		}
-		TargetSynthComp->bAllowSpatialization = SourceAudioComp->bAllowSpatialization;
-	}
-}
-
-void UReaperAudioHelpers::CopySettingsFromSoundAsset(
-	USceneComponent* TargetComponent,
-	USoundBase* SoundAsset)
-{
-	USynthComponent* SynthComp = ToSynth(TargetComponent, TEXT("CopySettingsFromSoundAsset"));
-	if (!SynthComp || !SoundAsset) return;
+	USynthComponent* SynthComp = ToSynth(TargetComponent, TEXT("CopySettingsFromAudioComponent"));
+	if (!SynthComp || !SourceComponent) return;
 
 	// --- SoundClass ---
-	USoundClass* SC = SoundAsset->GetSoundClass();
-	if (SC)
+	if (SourceComponent->SoundClassOverride)
 	{
-		SetSoundClassOnSynthComponent(TargetComponent, SC);
+		SetSoundClassOnSynthComponent(TargetComponent, SourceComponent->SoundClassOverride);
 	}
 
 	// --- Attenuation ---
-	if (SoundAsset->AttenuationSettings)
+	if (SourceComponent->AttenuationSettings)
 	{
-		SetAttenuationOnSynthComponent(TargetComponent, SoundAsset->AttenuationSettings);
+		SetAttenuationOnSynthComponent(TargetComponent, SourceComponent->AttenuationSettings);
 	}
-	else
+	else if (SourceComponent->bOverrideAttenuation)
 	{
-		const FSoundAttenuationSettings* EffectiveAtt = SoundAsset->GetAttenuationSettingsToApply();
-		if (EffectiveAtt)
+		SynthComp->bOverrideAttenuation = true;
+		SynthComp->AttenuationOverrides = SourceComponent->AttenuationOverrides;
+		SynthComp->bAllowSpatialization = SourceComponent->bAllowSpatialization;
+		if (UAudioComponent* Internal = SynthComp->GetAudioComponent())
 		{
-			SynthComp->bOverrideAttenuation = true;
-			SynthComp->AttenuationOverrides = *EffectiveAtt;
-			SynthComp->bAllowSpatialization = EffectiveAtt->bSpatialize;
-			if (UAudioComponent* Internal = SynthComp->GetAudioComponent())
-			{
-				Internal->bOverrideAttenuation = true;
-				Internal->AttenuationOverrides = *EffectiveAtt;
-				Internal->bAllowSpatialization = EffectiveAtt->bSpatialize;
-			}
+			Internal->bOverrideAttenuation = true;
+			Internal->AttenuationOverrides = SourceComponent->AttenuationOverrides;
+			Internal->bAllowSpatialization = SourceComponent->bAllowSpatialization;
 		}
+	}
+
+	if (bMuteSource)
+	{
+		OriginalVolumeMultiplier = SourceComponent->VolumeMultiplier;
+		SourceComponent->SetVolumeMultiplier(0.0f);
 	}
 }
 
-void UReaperAudioHelpers::CopySettingsFromExistingSound(
-	USceneComponent* TargetComponent,
-	UAudioComponent* SourceAudioComp,
-	bool bPlaySound,
-	bool bCopySoundClass,
-	bool bCopyAttenuation)
+void UReaperAudioHelpers::RestoreVolumeMultiplier(
+	UAudioComponent* ComponentToRestore,
+	float OriginalVolumeMultiplier)
 {
-	CopySoundSettingsToSynthComponent(TargetComponent, SourceAudioComp, bCopySoundClass, bCopyAttenuation);
-	if (bPlaySound && SourceAudioComp)
+	if (ComponentToRestore)
 	{
-		SourceAudioComp->Play();
+		ComponentToRestore->SetVolumeMultiplier(OriginalVolumeMultiplier);
 	}
 }
 
@@ -130,14 +99,6 @@ void UReaperAudioHelpers::SetAttenuationOnSynthComponent(
 		Internal->bOverrideAttenuation = false;
 		Internal->AttenuationSettings = Attenuation;
 	}
-}
-
-USoundClass* UReaperAudioHelpers::GetEffectiveSoundClass(UAudioComponent* AudioComp)
-{
-	if (!AudioComp) return nullptr;
-	if (AudioComp->SoundClassOverride) return AudioComp->SoundClassOverride;
-	if (AudioComp->Sound) return AudioComp->Sound->GetSoundClass();
-	return nullptr;
 }
 
 void UReaperAudioHelpers::DebugLogAudioSettings(USceneComponent* TargetComponent, bool bPrintToScreen)

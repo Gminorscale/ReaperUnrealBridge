@@ -5,7 +5,6 @@
 #include "ReaperAudioCaptureComponent.generated.h"
 
 class UAudioComponent;
-class USoundBase;
 
 /**
  * Lightweight orchestrator component for the ReaperUnrealBridge plugin.
@@ -33,16 +32,12 @@ public:
 	TObjectPtr<USceneComponent> AudioCaptureTarget;
 
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
-		meta = (DisplayName = "Copy Settings from Existing Sound"))
-	void CopySettingsFromExistingSound(
-		UAudioComponent* SourceAudioComp,
-		bool bPlaySound = false,
-		bool bCopySoundClass = true,
-		bool bCopyAttenuation = true);
+		meta = (DisplayName = "Copy Settings from Audio Component"))
+	void CopySettingsFromAudioComponent(UAudioComponent* SourceComponent, bool bMuteSource, float& OriginalVolumeMultiplier);
 
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
-		meta = (DisplayName = "Copy Settings from Sound Asset"))
-	void CopySettingsFromSoundAsset(USoundBase* SoundAsset);
+		meta = (DisplayName = "Restore Volume Multiplier to Original Value"))
+	void RestoreVolumeMultiplier(UAudioComponent* ComponentToRestore, float OriginalVolumeMultiplier);
 
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Debug",
 		meta = (DisplayName = "Debug Log Audio Settings"))
