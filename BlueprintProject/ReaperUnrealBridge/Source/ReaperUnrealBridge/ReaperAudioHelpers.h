@@ -7,6 +7,7 @@
 class UAudioComponent;
 class USceneComponent;
 class USynthComponent;
+class USoundBase;
 class USoundClass;
 class USoundAttenuation;
 
@@ -42,17 +43,49 @@ public:
 		float& OriginalVolumeMultiplier);
 
 	/**
+	 * Copy SoundClass and Attenuation from a USoundBase asset onto a SynthComponent.
+	 * Works with SoundCue, SoundWave, MetaSound, etc. No AudioComponent required.
+	 * If bMuteSource is true, mutes the SoundBase asset directly (sets its volume to 0).
+	 * Call RestoreSoundBaseVolume on End Play to restore the original volume.
+	 *
+	 * @param TargetComponent   SynthComponent to apply settings to
+	 * @param SoundAsset        The Sound asset to read SoundClass and Attenuation from
+	 * @param bMuteSource       If true, sets the Sound asset volume to 0
+	 * @param OriginalVolume    Output: the asset volume before muting (pass to RestoreSoundBaseVolume on End Play)
+	 */
+	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
+		meta = (DisplayName = "Copy Settings from Sound Base"))
+	static void CopySettingsFromSoundBase(
+		USceneComponent* TargetComponent,
+		USoundBase* SoundAsset,
+		bool bMuteSource,
+		float& OriginalVolume);
+
+	/**
 	 * Restore the volume multiplier on an AudioComponent to the value captured
-	 * by CopySettingsFromSoundAsset. Call this on End Play.
+	 * by CopySettingsFromAudioComponent. Call this on End Play.
 	 *
 	 * @param ComponentToRestore      The same AudioComponent that was muted
-	 * @param OriginalVolumeMultiplier The value returned by CopySettingsFromSoundAsset
+	 * @param OriginalVolumeMultiplier The value returned by CopySettingsFromAudioComponent
 	 */
 	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
 		meta = (DisplayName = "Restore Volume Multiplier to Original Value"))
 	static void RestoreVolumeMultiplier(
 		UAudioComponent* ComponentToRestore,
 		float OriginalVolumeMultiplier);
+
+	/**
+	 * Restore the volume on a USoundBase asset to the value captured
+	 * by CopySettingsFromSoundBase. Call this on End Play.
+	 *
+	 * @param SoundAsset       The same Sound asset that was muted
+	 * @param OriginalVolume   The value returned by CopySettingsFromSoundBase
+	 */
+	UFUNCTION(BlueprintCallable, Category = "ReaperUnrealBridge|Audio",
+		meta = (DisplayName = "Restore Sound Base Volume"))
+	static void RestoreSoundBaseVolume(
+		USoundBase* SoundAsset,
+		float OriginalVolume);
 
 	/**
 	 * Set the SoundClass on a SynthComponent at runtime.

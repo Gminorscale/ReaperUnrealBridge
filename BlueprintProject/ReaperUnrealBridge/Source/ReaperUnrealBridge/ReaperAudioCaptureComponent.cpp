@@ -15,9 +15,22 @@ void UReaperAudioCaptureComponent::CopySettingsFromAudioComponent(UAudioComponen
 	}
 }
 
+void UReaperAudioCaptureComponent::CopySettingsFromSoundBase(USoundBase* SoundAsset, bool bMuteSource, float& OriginalVolume)
+{
+	if (AudioCaptureTarget)
+	{
+		UReaperAudioHelpers::CopySettingsFromSoundBase(AudioCaptureTarget, SoundAsset, bMuteSource, OriginalVolume);
+	}
+}
+
 void UReaperAudioCaptureComponent::RestoreVolumeMultiplier(UAudioComponent* ComponentToRestore, float OriginalVolumeMultiplier)
 {
 	UReaperAudioHelpers::RestoreVolumeMultiplier(ComponentToRestore, OriginalVolumeMultiplier);
+}
+
+void UReaperAudioCaptureComponent::RestoreSoundBaseVolume(USoundBase* SoundAsset, float OriginalVolume)
+{
+	UReaperAudioHelpers::RestoreSoundBaseVolume(SoundAsset, OriginalVolume);
 }
 
 void UReaperAudioCaptureComponent::DebugLogAudioSettings(bool bPrintToScreen)

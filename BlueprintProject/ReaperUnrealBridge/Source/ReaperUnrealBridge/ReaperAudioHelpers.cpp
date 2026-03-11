@@ -2,6 +2,9 @@
 #include "Engine/Engine.h"
 #include "Components/AudioComponent.h"
 #include "Components/SynthComponent.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundWave.h"
+#include "Sound/SoundCue.h"
 #include "Sound/SoundClass.h"
 #include "Sound/SoundAttenuation.h"
 
@@ -65,6 +68,78 @@ void UReaperAudioHelpers::CopySettingsFromAudioComponent(
 	}
 }
 
+static float GetSoundBaseVolume(USoundBase* Sound)
+{
+	if (USoundWave* Wave = Cast<USoundWave>(Sound))
+	{
+		return Wave->Volume;
+	}
+	if (USoundCue* Cue = Cast<USoundCue>(Sound))
+	{
+		return Cue->VolumeMultiplier;
+	}
+	return 1.0f;
+}
+
+static void SetSoundBaseVolume(USoundBase* Sound, float Volume)
+{
+	if (USoundWave* Wave = Cast<USoundWave>(Sound))
+	{
+		Wave->Volume = Volume;
+	}
+	else if (USoundCue* Cue = Cast<USoundCue>(Sound))
+	{
+		Cue->VolumeMultiplier = Volume;
+	}
+}
+
+void UReaperAudioHelpers::CopySettingsFromSoundBase(
+	USceneComponent* TargetComponent,
+	USoundBase* SoundAsset,
+	bool bMuteSource,
+	float& OriginalVolume)
+{
+	OriginalVolume = 1.0f;
+
+	USynthComponent* SynthComp = ToSynth(TargetComponent, TEXT("CopySettingsFromSoundBase"));
+	if (!SynthComp || !SoundAsset) return;
+
+	// --- SoundClass ---
+	USoundClass* SC = SoundAsset->GetSoundClass();
+	if (SC)
+	{
+		SetSoundClassOnSynthComponent(TargetComponent, SC);
+	}
+
+	// --- Attenuation ---
+	if (SoundAsset->AttenuationSettings)
+	{
+		SetAttenuationOnSynthComponent(TargetComponent, SoundAsset->AttenuationSettings);
+	}
+	else
+	{
+		const FSoundAttenuationSettings* EffectiveAtt = SoundAsset->GetAttenuationSettingsToApply();
+		if (EffectiveAtt)
+		{
+			SynthComp->bOverrideAttenuation = true;
+			SynthComp->AttenuationOverrides = *EffectiveAtt;
+			SynthComp->bAllowSpatialization = EffectiveAtt->bSpatialize;
+			if (UAudioComponent* Internal = SynthComp->GetAudioComponent())
+			{
+				Internal->bOverrideAttenuation = true;
+				Internal->AttenuationOverrides = *EffectiveAtt;
+				Internal->bAllowSpatialization = EffectiveAtt->bSpatialize;
+			}
+		}
+	}
+
+	if (bMuteSource)
+	{
+		OriginalVolume = GetSoundBaseVolume(SoundAsset);
+		SetSoundBaseVolume(SoundAsset, 0.0f);
+	}
+}
+
 void UReaperAudioHelpers::RestoreVolumeMultiplier(
 	UAudioComponent* ComponentToRestore,
 	float OriginalVolumeMultiplier)
@@ -72,6 +147,16 @@ void UReaperAudioHelpers::RestoreVolumeMultiplier(
 	if (ComponentToRestore)
 	{
 		ComponentToRestore->SetVolumeMultiplier(OriginalVolumeMultiplier);
+	}
+}
+
+void UReaperAudioHelpers::RestoreSoundBaseVolume(
+	USoundBase* SoundAsset,
+	float OriginalVolume)
+{
+	if (SoundAsset)
+	{
+		SetSoundBaseVolume(SoundAsset, OriginalVolume);
 	}
 }
 
@@ -83,7 +168,14 @@ void UReaperAudioHelpers::SetSoundClassOnSynthComponent(
 	if (!SynthComp) return;
 	SynthComp->SoundClass = SoundClass;
 	if (UAudioComponent* Internal = SynthComp->GetAudioComponent())
+	{
 		Internal->SoundClassOverride = SoundClass;
+		// The audio mixer only picks up a SoundClass change on an already-playing
+		// AudioComponent after a Stop+Play cycle (confirmed by Ghost Ship Games' audio library).
+		// Once re-started, the mixer tracks SoundClass->Properties.Volume in real-time automatically.
+		Internal->Stop();
+		Internal->Play();
+	}
 }
 
 void UReaperAudioHelpers::SetAttenuationOnSynthComponent(
