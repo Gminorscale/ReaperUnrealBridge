@@ -9,7 +9,7 @@ When a weapon (or any actor) fires in Unreal, the plugin tells Reaper to play a 
 ## Features
 
 - **Audio Capture from Reaper** — Route Reaper's output through a virtual audio device (e.g. VB-Cable, BlackHole, JACK) and capture it in Unreal via an AudioCaptureComponent. The captured audio is spatialized and mixed like any other in-game sound.
-- **Copy Settings from Existing Sound / Sound Asset** — Copy SoundClass and Attenuation from a reference sound (UAudioComponent or USoundBase) onto the AudioCapture component. Works with SoundCue, SoundWave, MetaSound, etc.
+- **Copy Settings from Existing Sound / Sound Asset** — Copy SoundClass and Attenuation from a reference sound (UAudioComponent or USoundBase) onto the AudioCapture component. Works with SoundCue, SoundWave, MetaSound, etc. For SoundClass volume to apply correctly at runtime, call **Stop Stream** before Copy Settings, then **Start Stream** after.
 - **OSC Control (Unreal → Reaper)** — Send OSC messages over UDP to trigger Reaper actions (play, stop, record, go to marker, etc.) directly from Blueprints. Uses a built-in raw UDP sender — no dependency on the OSC plugin for sending.
 - **Custom Editor Nodes** — "Get Reaper Action" and "Get OSC Command" nodes with searchable dropdowns backed by DataTables. Values are baked at compile time for zero-cost runtime lookups.
 - **Debug Logging** — "Debug Log Audio Settings" prints the current SoundClass, Attenuation, and spatialization state of a component to the Output Log and on-screen.
@@ -115,6 +115,16 @@ The audio captured from Reaper inherits the weapon's SoundClass and Attenuation,
 ### Setting Up Audio Capture Target
 
 After spawning `BP_AudioFromReaper`, set the `Audio Capture Target` property on `BP_AudioCapture_Comp` to point to the spawned actor's `AudioCaptureInBP` component. The Copy Settings and Debug Log functions will operate on that target.
+
+### Copy Settings and stream lifecycle
+
+For the audio mixer to apply the **SoundClass** (and thus game volume sliders, e.g. SFX) correctly to the capture, use this order in Blueprint:
+
+1. **Stop Stream** (on the Reaper bridge / capture component)
+2. **Copy Settings from Sound Base** (or **Copy Settings from Audio Component**) — target = your AudioCapture component, Sound Asset = reference sound
+3. **Start Stream**
+
+If you copy settings while the stream is already running, the SoundClass name is set but the mixer may not apply its volume until the stream is stopped and restarted. Wrapping Copy Settings with Stop Stream → Copy → Start Stream ensures settings apply reliably.
 
 ### Sending OSC to Reaper
 

@@ -29,6 +29,9 @@ public:
 	 * Optionally mutes the source component (non-destructive, component-level only).
 	 * Save the returned OriginalVolumeMultiplier and pass it to RestoreVolumeMultiplier on End Play.
 	 *
+	 * Recommended: Stop the capture stream before calling this, then Start Stream after,
+	 * so the audio mixer picks up the SoundClass and applies volume in real-time.
+	 *
 	 * @param TargetComponent         SynthComponent to apply settings to
 	 * @param SourceComponent         AudioComponent to read SoundClass and Attenuation from
 	 * @param bMuteSource             If true, sets SourceComponent volume multiplier to 0
@@ -47,6 +50,9 @@ public:
 	 * Works with SoundCue, SoundWave, MetaSound, etc. No AudioComponent required.
 	 * If bMuteSource is true, mutes the SoundBase asset directly (sets its volume to 0).
 	 * Call RestoreSoundBaseVolume on End Play to restore the original volume.
+	 *
+	 * Recommended: Stop the capture stream before calling this, then Start Stream after,
+	 * so the audio mixer picks up the SoundClass and applies volume in real-time.
 	 *
 	 * @param TargetComponent   SynthComponent to apply settings to
 	 * @param SoundAsset        The Sound asset to read SoundClass and Attenuation from
