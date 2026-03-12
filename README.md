@@ -9,9 +9,8 @@ When something fires in Unreal (a weapon, a door, whatever), the plugin tells Re
 ## Quick Install
 
 1. Copy the `ReaperUnrealBridge` folder into your project’s `Plugins/` directory.
-2. Delete any `Intermediate/` and `Binaries/` folders inside the copied plugin (they’re build leftovers and will be recreated).
-3. Open or restart Unreal. The plugin is picked up and built automatically.
-4. In the editor: **Edit → Plugins**, search for **ReaperUnrealBridge**, and make sure it’s enabled.
+2. Open or restart Unreal. The plugin is picked up and built automatically.
+3. In the editor: **Edit → Plugins**, search for **ReaperUnrealBridge**, and make sure it’s enabled.
 
 That’s it. No project settings, no Game Instance setup.
 
@@ -115,8 +114,6 @@ When the weapon fires, Reaper plays, and the audio is captured and spatialized a
 
 ## FAQ
 
-**Do I need to set up a Game Instance or editor preferences?**  
-No. Install the plugin, enable it, add **CP_ReaperUnrealBridge** to your Actor, set OSC IP and port, and use the six functions above.
 
 **Why no sound in Unreal?**  
 Check: (1) Reaper’s output is set to the virtual cable. (2) Windows default recording device is the cable output. (3) In Reaper, something is actually playing and the master isn’t muted. (4) You called **Place Audio From Reaper** and then **OSC_Send_PlayFromEditCursor** (or the right action) so Reaper is playing when you expect.
@@ -143,7 +140,7 @@ There is a Tutorial folder; the level there is still under construction and may 
 | UE 5.6 | Supported |
 | UE 5.7 | Supported |
 
-When you copy the plugin to a new project, delete `Intermediate/` and `Binaries/` in the plugin folder so they’re regenerated for that project.
+When you copy the plugin to a new project, the engine will build or load it as needed (the plugin is shipped without `Intermediate/` and `Binaries/`).
 
 ---
 
