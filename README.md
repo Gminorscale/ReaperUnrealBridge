@@ -1,162 +1,199 @@
 # ReaperUnrealBridge
 
-Reaper ↔ Unreal Engine bridge: capture Reaper audio in-engine and control Reaper via OSC.
+Instantly prototype your audio from Reaper to Unreal with two-way sync between the two. Add one component on your Actor in Unreal and hear Reaper’s audio spatialized in-engine. Trigger actions in Reaper from Unreal.
 
 ## How It Works
 
-When a weapon (or any actor) fires in Unreal, the plugin tells Reaper to play a sound via OSC, then captures that audio back from Reaper through a virtual audio cable and spatializes it in-engine — inheriting SoundClass, Attenuation, and spatialization from the original Unreal sound. You get Reaper's audio quality and processing pipeline while keeping Unreal's 3D spatial audio.
+When something fires in Unreal (a weapon, a door, whatever), the plugin tells Reaper to play via OSC, captures that audio back through a virtual cable, and spatializes it in Unreal. You keep Reaper’s sound and processing while using Unreal’s 3D audio, SoundClass, and Attenuation.
 
-## Features
+## Quick Install
 
-- **Audio Capture from Reaper** — Route Reaper's output through a virtual audio device (e.g. VB-Cable, BlackHole, JACK) and capture it in Unreal via an AudioCaptureComponent. The captured audio is spatialized and mixed like any other in-game sound.
-- **Copy Settings from Existing Sound / Sound Asset** — Copy SoundClass and Attenuation from a reference sound (UAudioComponent or USoundBase) onto the AudioCapture component. Works with SoundCue, SoundWave, MetaSound, etc. For SoundClass volume to apply correctly at runtime, call **Stop Stream** before Copy Settings, then **Start Stream** after.
-- **OSC Control (Unreal → Reaper)** — Send OSC messages over UDP to trigger Reaper actions (play, stop, record, go to marker, etc.) directly from Blueprints. Uses a built-in raw UDP sender — no dependency on the OSC plugin for sending.
-- **Custom Editor Nodes** — "Get Reaper Action" and "Get OSC Command" nodes with searchable dropdowns backed by DataTables. Values are baked at compile time for zero-cost runtime lookups.
-- **Debug Logging** — "Debug Log Audio Settings" prints the current SoundClass, Attenuation, and spatialization state of a component to the Output Log and on-screen.
-- **No Project Settings Required** — Enable the plugin and go. No custom Game Instance, no editor preferences to configure.
+1. Copy the `ReaperUnrealBridge` folder into your project’s `Plugins/` directory.
+2. Delete any `Intermediate/` and `Binaries/` folders inside the copied plugin (they’re build leftovers and will be recreated).
+3. Open or restart Unreal. The plugin is picked up and built automatically.
+4. In the editor: **Edit → Plugins**, search for **ReaperUnrealBridge**, and make sure it’s enabled.
+
+That’s it. No project settings, no Game Instance setup.
+
+---
+
+## Setup in Reaper
+
+To hear Reaper in Unreal, Reaper’s output has to go to a virtual device that Unreal can capture as “microphone” input. The simplest way for most people is something like VB-Cable (free): https://vb-audio.com/Cable/
+
+1. In Reaper: **Preferences → Device**. Set **Audio output** to **CABLE Input**.
+2. In Windows Sound settings, set your **microphone (input)** to **CABLE Output**. Reaper’s output is now what Unreal sees as the mic.
+
+If you also want Unreal to trigger actions in Reaper (play, stop, go to marker, etc.):
+
+1. **Preferences → Control/OSC/web**. Click **Add**.
+2. Use something like:
+   - **Control surface mode:** OSC (Open Source Control)
+   - **Device name:** ReaperUnrealBridge
+   - **Pattern config:** Default
+   - **Mode:** Local Port
+   - **Local listen port:** 8010 (or any free port)
+   - **Allow binding messages to REAPER actions and FX learn:** enabled
+3. Note your machine’s local IP and the port; you’ll need them in Unreal.
+
+---
+
+## Setup in Unreal: The One Component You Need
+
+The heart of the plugin is **CP_ReaperUnrealBridge**. It’s a Blueprint component. Add it to the Actor that should drive Reaper (e.g. your weapon, your vehicle). Everything else in the plugin exists to support this component.
+
+### Where to Find It
+
+In the Content Browser, search for **ReaperUnrealBridge**. You’ll see the main asset **CP_ReaperUnrealBridge** (Blueprint Class). The rest (e.g. `BP_AudioCapture_Comp`, `BP_AudioFromReaper`, data tables, Tutorial folder) are helpers; you don’t need to touch them unless you want to dig deeper.
+
+### Settings (Variables)
+
+On **CP_ReaperUnrealBridge**, under **Variables → Settings**:
+
+| Variable      | Type    | What to set |
+|---------------|---------|-------------|
+| **OSC Ip Adress** | String  | The IP you noted from Reaper (often your PC’s local IP). |
+| **OSC Port**      | Integer | The port you set in Reaper (e.g. 8010). |
+
+Set these once and the component can talk to Reaper.
+
+### Functions You Use
+
+From the **CP Reaper Unreal Bridge** component you only need a small set of functions. The component also has other functions used internally (e.g. restoring sound base volume); those are handled for you and you can ignore them.
+
+**Main functions to use:**
+
+| Function | What it does |
+|----------|----------------|
+| **Place Audio From Reaper** | Spawns the audio source, attaches it to your owner, starts capturing from the virtual cable. Call this when you want to “turn on” Reaper audio for this actor. |
+| **Copy Settings From Sound Base** | Copies SoundClass and Attenuation from a Sound Base asset onto the capture. Optional toggle to mute the original sound. |
+| **Copy Settings From Audio Component** | Same idea, but from an existing Audio Component (e.g. a reference sound already in the level). |
+| **OSC_Send_PlayFromEditCursor** | Sends OSC to Reaper to start playback from the edit cursor. |
+| **OSC_Send_Stop** | Sends OSC to Reaper to stop playback. |
+| **OSC_Send_Action** | Sends a Reaper action by ID (e.g. go to marker, record). Use the **Get Reaper Action** node to get the command ID from the ReaperActions_DataTable. |
+
+**Optional / advanced:** If you open the component’s function list you’ll see more (e.g. `RestoreSoundSettings`, `ApplyCopiedSoundSettings`, `SetSoundSettings`, `DebugSounds`, `SpawnActor`, `AttachActorToActor`, `StartStream`, `StopStream`, `OSC_Send`). These are used internally or for edge cases. You can use them if you need finer control, but normal workflows only need the six functions above.
+
+---
+
+## Example: Weapon Fire
+
+1. Open **CP_ReaperUnrealBridge**, go to **Variables → Settings**, and set **OSC Ip Adress** and **OSC Port** to match Reaper.
+2. In your weapon Blueprint (e.g. `BP_Weapon`), add **CP_ReaperUnrealBridge** as a component.
+3. From your firing event (e.g. “Event FiredWeapon”), drag a reference to the **CP Reaper Unreal Bridge** component and call, in order:
+   - **Place Audio From Reaper** (spawn and attach the audio, start capture).
+   - **Copy Settings From Sound Base** (feed it your existing fire sound asset; check “Mute Source” if you don’t want the original to play).
+   - **OSC_Send_PlayFromEditCursor** (tell Reaper to play).
+   - **OSC_Send_Action** (e.g. “Go to marker 01”). Use the **Get Reaper Action** node and pick something like “Markers: Gotomarker01” to get the Action ID.
+
+When the weapon fires, Reaper plays, and the audio is captured and spatialized at the weapon’s location using the same SoundClass and Attenuation as your reference sound.
+
+---
+
+## Key Assets
+
+| Asset | Type | Role |
+|-------|------|------|
+| **CP_ReaperUnrealBridge** | Blueprint Class | The main component. Add this to your actors; it runs the important commands. |
+| **BP_AudioCapture_Comp** | Blueprint Class | Helper used by the bridge. |
+| **BP_AudioFromReaper** | Blueprint Class | Runtime audio actor with AudioCaptureComponent; spawned by the bridge. You can tweak its look (e.g. the sphere) if you want. |
+| **ReaperActions_DataTable** | Data Table | Reaper actions (Command ID, name, category). Used by **Get Reaper Action**. |
+| **DT_Reaper_OSCList** | Data Table | OSC command patterns. Used by **Get OSC Command**. |
+| **CC_AudioCapture** | Sound Concurrency | Limits to one capture at a time so only one Reaper stream plays. |
+| **STRUCT_ActionIDs** / **STRUCT_ReaperOSCList** | Structures | Backing data for the data tables. |
+
+---
 
 ## Requirements
 
-- **Unreal Engine 5.5+** (tested on 5.5, 5.6, and 5.7)
-- **Plugins** (enabled automatically when this plugin is enabled):
-  - **AudioCapture** — Engine plugin for microphone/virtual-device capture
-- **Reaper** (or any DAW that accepts OSC) running on the same machine or network
-- **Virtual audio device** (e.g. VB-Audio Virtual Cable) to route Reaper's output back to Unreal
+- **Unreal Engine 5.5+** (tested on 5.5, 5.6, 5.7).
+- The **AudioCapture** engine plugin (enabled automatically with this plugin).
+- **Reaper** (or another DAW that accepts OSC) on the same machine or network.
+- A **virtual audio device** (e.g. VB-Cable) so Reaper’s output can be sent into Unreal as capture input.
 
-## Installation
+---
 
-1. Copy the `ReaperUnrealBridge` folder into your project's `Plugins/` directory.
-2. **Delete** any `Intermediate/` and `Binaries/` folders inside the copied plugin (these are project-specific build artifacts and must be regenerated).
-3. Open or restart the Unreal Editor. The plugin will be detected and built automatically.
-4. Verify the plugin is enabled: Edit → Plugins → search "ReaperUnrealBridge".
+## FAQ
 
-### Precompiling binaries (for distribution)
+**Do I need to set up a Game Instance or editor preferences?**  
+No. Install the plugin, enable it, add **CP_ReaperUnrealBridge** to your Actor, set OSC IP and port, and use the six functions above.
 
-To avoid the "Missing Modules" / "Please build through your IDE" popup in **Blueprint-only** (or other) projects, you can ship precompiled binaries so the engine loads the plugin without compiling.
+**Why no sound in Unreal?**  
+Check: (1) Reaper’s output is set to the virtual cable. (2) Windows default recording device is the cable output. (3) In Reaper, something is actually playing and the master isn’t muted. (4) You called **Place Audio From Reaper** and then **OSC_Send_PlayFromEditCursor** (or the right action) so Reaper is playing when you expect.
 
-**Option A — Build from a C++ project (simplest)**
+**Can I use a different virtual cable or JACK?**  
+Yes. Any setup where Reaper’s output becomes the device Unreal’s AudioCapture uses as “microphone” will work.
 
-1. Use (or create) any **C++** Unreal project with the same engine version you want to support (e.g. 5.5, 5.6).
-2. Copy the entire `ReaperUnrealBridge` plugin folder into that project’s `Plugins/` directory.
-3. Open the project in the editor once so the solution is generated, then close the editor.
-4. Open the `.sln` in Visual Studio and build the **Development Editor** (or **Shipping**) configuration.
-5. After a successful build, the plugin’s binaries are in:
-   - `Plugins/ReaperUnrealBridge/Binaries/Win64/` (Windows)
-   - (Other platforms under `Binaries/<Platform>/`.)
-6. For distribution: copy the whole `ReaperUnrealBridge` folder (including `Binaries/`) to the target project’s `Plugins/` folder. In the **distributed** copy only, set `"Installed": true` in `ReaperUnrealBridge.uplugin` so the engine uses the precompiled DLLs and does not try to compile.
+**OSC from Unreal isn’t doing anything in Reaper.**  
+Confirm **OSC Ip Adress** and **OSC Port** on **CP_ReaperUnrealBridge** match the Control/OSC device in Reaper. If Reaper is on another PC, use that PC’s IP and the port you opened there.
 
-**Option B — RunUAT (command-line, good for automation)**
+**What if I’m on a Blueprint-only project and get “Missing Modules” or “build through IDE”?**  
+The plugin can be built when you open the project. If you prefer to avoid that, see **Precompiling binaries** below; you can ship prebuilt plugin binaries so the engine doesn’t need to compile.
 
-1. From a command prompt, run the Unreal Automation Tool with `BuildPlugin` (paths below are examples; adjust to your engine and plugin locations):
+**Tutorial map?**  
+There is a Tutorial folder; the level there is still under construction and may not be fully wired yet.
 
-   ```bat
-   "C:\Program Files\Epic Games\UE_5.5\Engine\Build\BatchFiles\RunUAT.bat" BuildPlugin ^
-     -Plugin="Z:\gits\ReaperUnrealBridge\ReaperUnrealBridge.uplugin" ^
-     -Package="Z:\gits\ReaperUnrealBridge\Packaged"
-   ```
-
-2. Replace `UE_5.5` with your engine version and the paths with your actual paths. The `-Package` directory will contain the built plugin (including `Binaries/`).
-3. When you distribute that packaged folder, set `"Installed": true` in the copied `ReaperUnrealBridge.uplugin`.
-
-**Notes**
-
-- Binaries are **engine-version and platform specific**. Build once per engine version (e.g. 5.5, 5.6) and per platform (Win64, etc.) you want to support.
-- Keep `"Installed": false` in your **source** repo so that during development the engine still compiles the plugin when you build from the IDE.
-
-## Architecture
-
-The plugin uses a three-layer architecture:
-
-### BP_AudioCapture_Comp (Blueprint Component — the orchestrator)
-
-Lives on weapons or other actors. Contains all the high-level logic:
-
-- **ActivateAudioFromReaper** — Destroys any existing audio actor, spawns a new `BP_AudioFromReaper`, attaches it to the owner, and starts the audio capture stream.
-- **SpawnActor / AttachActorToActor** — Spawns and attaches the audio actor to the component's owner.
-- **StartStream / StopStream** — Controls the AudioCaptureComponent on the spawned actor.
-- **OSC functions** (SendOSC_TriggerAction, SendOSC_PlayFromEditCursor, SendOSC_Stop, OSC_Send) — Build OSC addresses using Get Reaper Action and send them to Reaper.
-- **CopySettingsFromExistingSound / CopySettingsFromSoundAsset / ApplyCopiedSoundSettings / SetSoundSettings** — Manage copying SoundClass/Attenuation from reference sounds to the audio capture.
-
-### BP_AudioFromReaper (Blueprint Actor — the audio source)
-
-Spawned at runtime by BP_AudioCapture_Comp. Contains:
-
-- **AudioCaptureInBP** — A standard engine `AudioCaptureComponent` that captures audio from the virtual audio cable (Reaper's output).
-- **Sphere** — Visual representation in the world.
-
-### C++ Support Layer (helpers and editor tools)
-
-The C++ code provides supplementary functions; the core system logic lives in Blueprint.
-
-| Class | Description |
-|-------|-------------|
-| `UReaperAudioCaptureComponent` | SceneComponent parent for BP_AudioCapture_Comp. Provides Copy Settings and Debug Log functions that operate on a user-assigned `AudioCaptureTarget`. |
-| `UReaperAudioHelpers` | Blueprint library: copy/set SoundClass and Attenuation on any SynthComponent. |
-| `UReaperOSCSender` | Blueprint library: `QuickSendMessage` sends raw OSC 1.0 packets over UDP. |
-| `FReaperOSCMessage` | Internal struct that builds OSC 1.0 packets (float and bang messages). |
-| `UReaperUnrealBridgeDataTableHelpers` | DataTable lookup helpers for Reaper actions and OSC commands. |
-| `UK2Node_GetReaperAction` | Editor node: searchable Reaper action dropdown → CommandID string. |
-| `UK2Node_GetOSCCommand` | Editor node: searchable OSC command dropdown → address, type, category. |
-| `SGraphNode_ReaperDropdown` | Custom graph node widget with searchable dropdown for DataTable rows. |
-
-## Usage
-
-### Example: Weapon Fire Flow
-
-On `WPN_AssaultRifle` (or any weapon), `BP_AudioCapture_Comp` is added as a component. When the weapon fires:
-
-1. **Copy Settings from Sound Asset** — Grabs SoundClass and Attenuation from the fire sound asset.
-2. **Activate Audio from Reaper** — Spawns `BP_AudioFromReaper`, attaches it to the weapon owner, starts audio capture.
-3. **Send OSC Trigger Action** — Tells Reaper to trigger the corresponding sound.
-4. **Send OSC Play from Edit Cursor** — Tells Reaper to start playback.
-
-The audio captured from Reaper inherits the weapon's SoundClass and Attenuation, so it sounds like it's coming from the weapon in 3D space.
-
-### Setting Up Audio Capture Target
-
-After spawning `BP_AudioFromReaper`, set the `Audio Capture Target` property on `BP_AudioCapture_Comp` to point to the spawned actor's `AudioCaptureInBP` component. The Copy Settings and Debug Log functions will operate on that target.
-
-### Copy Settings and stream lifecycle
-
-For the audio mixer to apply the **SoundClass** (and thus game volume sliders, e.g. SFX) correctly to the capture, use this order in Blueprint:
-
-1. **Stop Stream** (on the Reaper bridge / capture component)
-2. **Copy Settings from Sound Base** (or **Copy Settings from Audio Component**) — target = your AudioCapture component, Sound Asset = reference sound
-3. **Start Stream**
-
-If you copy settings while the stream is already running, the SoundClass name is set but the mixer may not apply its volume until the stream is stopped and restarted. Wrapping Copy Settings with Stop Stream → Copy → Start Stream ensures settings apply reliably.
-
-### Sending OSC to Reaper
-
-1. In Reaper, enable OSC control surface (Options → Preferences → Control/OSC/Web).
-2. In a Blueprint, use **Get Reaper Action** to select an action from the searchable dropdown (outputs a CommandID string).
-3. Build the OSC address as `/action/{CommandID}` and send with **Quick Send Message** (IP, Port, Address, Value) or through the component's OSC functions.
-
-### Key Blueprint Assets
-
-| Asset | Type | Description |
-|-------|------|-------------|
-| `BP_AudioCapture_Comp` | Component | System orchestrator: spawning, OSC, audio settings, stream management |
-| `BP_AudioFromReaper` | Actor | Runtime audio source with AudioCaptureComponent and Sphere |
-| `ReaperActions_DataTable` | DataTable | All Reaper actions with CommandID, name, category |
-| `DT_Reaper_OSCList` | DataTable | OSC command patterns with address, argument type, examples |
-| `CC_AudioCapture` | Sound Concurrency | Concurrency settings for audio capture |
+---
 
 ## Engine Compatibility
 
-| Engine Version | Status |
-|----------------|--------|
+| Engine | Status   |
+|--------|----------|
 | UE 5.5 | Supported |
 | UE 5.6 | Supported |
 | UE 5.7 | Supported |
 
-**When copying the plugin to a new project**, always delete the `Intermediate/` and `Binaries/` folders first. These contain project-specific generated code and compiled binaries that will be regenerated on first build.
+When you copy the plugin to a new project, delete `Intermediate/` and `Binaries/` in the plugin folder so they’re regenerated for that project.
+
+---
+
+## Precompiling Binaries (Optional)
+
+If you want to ship the plugin without requiring users to compile (handy for Blueprint-only projects), you can build it once and distribute the built plugin.
+
+**Option A (from a C++ project):**
+
+1. Use a C++ project with the same engine version (e.g. 5.5).
+2. Copy the full `ReaperUnrealBridge` plugin folder into that project’s `Plugins/` directory.
+3. Open the project once so the solution is generated, then close the editor.
+4. Open the `.sln` in Visual Studio and build **Development Editor** (or **Shipping**).
+5. After a successful build, binaries are in `Plugins/ReaperUnrealBridge/Binaries/Win64/` (or the right platform).
+6. For distribution: copy the whole `ReaperUnrealBridge` folder (including `Binaries/`). In that copy only, set `"Installed": true` in `ReaperUnrealBridge.uplugin` so the engine uses the DLLs and doesn’t try to compile.
+
+**Option B (RunUAT):**
+
+From a command prompt:
+
+```bat
+"C:\Program Files\Epic Games\UE_5.5\Engine\Build\BatchFiles\RunUAT.bat" BuildPlugin ^
+  -Plugin="C:\path\to\ReaperUnrealBridge\ReaperUnrealBridge.uplugin" ^
+  -Package="C:\path\to\output\Packaged"
+```
+
+Adjust the engine path and plugin path. The packaged folder will contain the built plugin. In the copy you distribute, set `"Installed": true` in `ReaperUnrealBridge.uplugin`.
+
+Binaries are per engine version and per platform. Keep `"Installed": false` in your source repo so your own builds still compile the plugin from the IDE.
+
+---
+
+## Architecture (For the Curious)
+
+The plugin is built in layers. **CP_ReaperUnrealBridge** is the main component you use; under the hood it uses:
+
+- **BP_AudioCapture_Comp** (Blueprint): Orchestrates spawning, attaching, stream start/stop, and OSC. The “Place Audio From Reaper” and related logic lives here.
+- **BP_AudioFromReaper** (Blueprint Actor): Holds the engine `AudioCaptureComponent` and a simple visual (e.g. sphere). Spawned at runtime by the component.
+- **C++**: Helpers for copying SoundClass/Attenuation, sending raw OSC over UDP, and editor nodes like **Get Reaper Action** / **Get OSC Command** with searchable DataTable dropdowns.
+
+You don’t need to modify any of this for normal use; it’s here if you want to understand or extend the plugin.
+
+---
 
 ## Plugin Structure
 
 ```
 ReaperUnrealBridge/
 ├── Content/
+│   ├── CP_ReaperUnrealBridge.uasset   (main component)
 │   ├── BP_AudioCapture_Comp.uasset
 │   ├── BP_AudioFromReaper.uasset
 │   ├── CC_AudioCapture.uasset
@@ -170,25 +207,14 @@ ReaperUnrealBridge/
 │   └── Tutorial/
 │       └── LVL_ReaperUnrealBridge_Tutorial.umap
 ├── Source/
-│   ├── ReaperUnrealBridge/          (Runtime module)
-│   │   ├── ReaperAudioCaptureComponent.h/.cpp
-│   │   ├── ReaperAudioHelpers.h/.cpp
-│   │   ├── ReaperOSCSender.h/.cpp
-│   │   ├── ReaperOSCMessage.h/.cpp
-│   │   ├── ReaperUnrealBridgeDataTableHelpers.h/.cpp
-│   │   ├── ReaperUnrealBridge.h/.cpp
-│   │   └── ReaperUnrealBridge.Build.cs
-│   └── ReaperUnrealBridgeEditor/    (Editor-only module)
-│       ├── K2Node_GetReaperAction.h/.cpp
-│       ├── K2Node_GetOSCCommand.h/.cpp
-│       ├── K2Node_ReaperBase.h/.cpp
-│       ├── SGraphNode_ReaperDropdown.h/.cpp
-│       ├── ReaperUnrealBridgeEditor.h/.cpp
-│       └── ReaperUnrealBridgeEditor.Build.cs
+│   ├── ReaperUnrealBridge/           (Runtime)
+│   └── ReaperUnrealBridgeEditor/     (Editor)
 ├── ReaperUnrealBridge.uplugin
 └── README.md
 ```
 
+---
+
 ## License
 
-See project license.
+See the project license.
