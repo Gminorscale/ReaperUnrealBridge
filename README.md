@@ -118,14 +118,23 @@ When the weapon fires, Reaper plays, and the audio is captured and spatialized a
 **Why no sound in Unreal?**  
 Check: (1) Reaper’s output is set to the virtual cable. (2) Windows default recording device is the cable output. (3) In Reaper, something is actually playing and the master isn’t muted. (4) You called **Place Audio From Reaper** and then **OSC_Send_PlayFromEditCursor** (or the right action) so Reaper is playing when you expect.
 
-**Can I use a different virtual cable or JACK?**  
-Yes. Any setup where Reaper’s output becomes the device Unreal’s AudioCapture uses as “microphone” will work.
+**Can I use a different virtual cable, JACK, or hardware routing?**  
+Yes. Any setup where Reaper’s output becomes the device Unreal’s AudioCapture uses as “microphone” will work. That includes VB-Cable, ReaRoute, ASIO loopback, or hardware mixers. On interfaces like RME Totalmix you can route more granularly: for instance send only track 1–2 to the device Unreal captures from while you still listen to the full mix in Reaper.
+
+**Can I use more than one CP_ReaperUnrealBridge in the same level?**  
+Yes. Add the component to as many actors as you need. By default, **CC_AudioCapture** limits playback to one capture at a time, so only one Reaper stream plays at once; the others wait or you can adjust concurrency if you need a different behavior.
 
 **OSC from Unreal isn’t doing anything in Reaper.**  
 Confirm **OSC Ip Adress** and **OSC Port** on **CP_ReaperUnrealBridge** match the Control/OSC device in Reaper. If Reaper is on another PC, use that PC’s IP and the port you opened there.
 
 **What if I’m on a Blueprint-only project and get “Missing Modules” or “build through IDE”?**  
 The plugin can be built when you open the project. If you prefer to avoid that, see **Precompiling binaries** below; you can ship prebuilt plugin binaries so the engine doesn’t need to compile.
+
+**Does “Get Reaper Action” list every Reaper action, and can I add custom ones?**  
+It uses a fixed list in **ReaperActions_DataTable**, not a live dump from Reaper. You can add more actions by editing the Data Table with the right Reaper command IDs. For fully custom OSC (arbitrary address/arguments), the **OSC_Send** function is available for advanced use.
+
+**Can I use the same Reaper project for multiple Unreal projects or levels?**  
+Yes. Reaper doesn’t care which Unreal project or level sends the OSC; it just responds on the IP/port. One Reaper instance can be driven by different Unreal projects or levels. Only one Unreal instance can capture from the cable at a time, so you’d run one at a time or use separate routing per instance.
 
 **Tutorial map?**  
 There is a Tutorial folder; the level there is still under construction and may not be fully wired yet.
