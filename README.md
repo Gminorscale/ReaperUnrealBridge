@@ -39,15 +39,15 @@ If you also want Unreal to trigger actions in Reaper (play, stop, go to marker, 
 
 ## Setup in Unreal: The One Component You Need
 
-The heart of the plugin is **CP_ReaperUnrealBridge**. It’s a Blueprint component. Add it to the Actor that should drive Reaper (e.g. your weapon, your vehicle). Everything else in the plugin exists to support this component.
+The heart of the plugin is **AC_ReaperUnrealBridge**. It’s a Blueprint component. Add it to the Actor that should drive Reaper (e.g. your weapon, your vehicle). Everything else in the plugin exists to support this component.
 
 ### Where to Find It
 
-In the Content Browser, search for **ReaperUnrealBridge**. You’ll see the main asset **CP_ReaperUnrealBridge** (Blueprint Class). The rest (e.g. `BP_AudioCapture_Comp`, `BP_AudioFromReaper`, data tables, Tutorial folder) are helpers; you don’t need to touch them unless you want to dig deeper.
+In the Content Browser, expand **Plugins → ReaperUnrealBridge Content**. You’ll see the main asset **AC_ReaperUnrealBridge** (Blueprint Class) and the runtime actor **BP_AudioCapture**. The `HelperAssets` and `OSC` folders contain supporting assets (materials, concurrency, data tables, structs, etc.).
 
 ### Settings (Variables)
 
-On **CP_ReaperUnrealBridge**, under **Variables → Settings**:
+On **AC_ReaperUnrealBridge**, under **Variables → Settings**:
 
 | Variable      | Type    | What to set |
 |---------------|---------|-------------|
@@ -58,7 +58,7 @@ Set these once and the component can talk to Reaper.
 
 ### Functions You Use
 
-From the **CP Reaper Unreal Bridge** component you only need a small set of functions. The component also has other functions used internally (e.g. restoring sound base volume); those are handled for you and you can ignore them.
+From the **AC Reaper Unreal Bridge** component you only need a small set of functions. The component also has other functions used internally (e.g. restoring sound base volume); those are handled for you and you can ignore them.
 
 **Main functions to use:**
 
@@ -77,9 +77,9 @@ From the **CP Reaper Unreal Bridge** component you only need a small set of func
 
 ## Example: Weapon Fire
 
-1. Open **CP_ReaperUnrealBridge**, go to **Variables → Settings**, and set **OSC Ip Adress** and **OSC Port** to match Reaper.
-2. In your weapon Blueprint (e.g. `BP_Weapon`), add **CP_ReaperUnrealBridge** as a component.
-3. From your firing event (e.g. “Event FiredWeapon”), drag a reference to the **CP Reaper Unreal Bridge** component and call, in order:
+1. Open **AC_ReaperUnrealBridge**, go to **Variables → Settings**, and set **OSC Ip Adress** and **OSC Port** to match Reaper.
+2. In your weapon Blueprint (e.g. `BP_Weapon`), add **AC_ReaperUnrealBridge** as a component.
+3. From your firing event (e.g. “Event FiredWeapon”), drag a reference to the **AC Reaper Unreal Bridge** component and call, in order:
    - **Place Audio From Reaper** (spawn and attach the audio, start capture).
    - **Copy Settings From Sound Base** (feed it your existing fire sound asset; check “Mute Source” if you don’t want the original to play).
    - **OSC_Send_PlayFromEditCursor** (tell Reaper to play).
@@ -93,13 +93,13 @@ When the weapon fires, Reaper plays, and the audio is captured and spatialized a
 
 | Asset | Type | Role |
 |-------|------|------|
-| **CP_ReaperUnrealBridge** | Blueprint Class | The main component. Add this to your actors; it runs the important commands. |
-| **BP_AudioCapture_Comp** | Blueprint Class | Helper used by the bridge. |
-| **BP_AudioFromReaper** | Blueprint Class | Runtime audio actor with AudioCaptureComponent; spawned by the bridge. You can tweak its look (e.g. the sphere) if you want. |
-| **ReaperActions_DataTable** | Data Table | Reaper actions (Command ID, name, category). Used by **Get Reaper Action**. |
-| **DT_Reaper_OSCList** | Data Table | OSC command patterns. Used by **Get OSC Command**. |
-| **CC_AudioCapture** | Sound Concurrency | Limits to one capture at a time so only one Reaper stream plays. |
-| **STRUCT_ActionIDs** / **STRUCT_ReaperOSCList** | Structures | Backing data for the data tables. |
+| **AC_ReaperUnrealBridge** | Blueprint Class | The main component. Add this to your actors; it runs the important commands. |
+| **BP_AudioCapture** | Blueprint Class | Runtime audio actor with `AudioCaptureComponent`; spawned by the bridge and attached to your actor. |
+| **HelperAssets/CC_AudioCapture** | Sound Concurrency | Limits to one capture at a time so only one Reaper stream plays. |
+| **HelperAssets/M_ReaperLogo**, **HelperAssets/ReaperLogo** | Material / Texture | Visual helpers used by the plugin. |
+| **OSC/ReaperActions_DataTable** | Data Table | Reaper actions (Command ID, name, category). Used by **Get Reaper Action**. |
+| **OSC/DT_Reaper_OSCList** | Data Table | OSC command patterns. Used by **Get OSC Command**. |
+| **OSC/STRUCT_ActionIDs** / **OSC/STRUCT_ReaperOSCList** | Structures | Backing data for the data tables. |
 
 ---
 
@@ -121,7 +121,7 @@ Check: (1) Reaper’s output is set to the virtual cable. (2) Windows default re
 **Can I use a different virtual cable, JACK, or hardware routing?**  
 Yes. Any setup where Reaper’s output becomes the device Unreal’s AudioCapture uses as “microphone” will work. That includes VB-Cable, ReaRoute, ASIO loopback, or hardware mixers. On interfaces like RME Totalmix you can route more granularly: for instance send only track 1–2 to the device Unreal captures from while you still listen to the full mix in Reaper.
 
-**Can I use more than one CP_ReaperUnrealBridge in the same level?**  
+**Can I use more than one AC_ReaperUnrealBridge in the same level?**  
 Yes. Add the component to as many actors as you need. By default, **CC_AudioCapture** limits playback to one capture at a time, so only one Reaper stream plays at once; the others wait or you can adjust concurrency if you need a different behavior.
 
 **OSC from Unreal isn’t doing anything in Reaper.**  
@@ -184,10 +184,9 @@ Binaries are per engine version and per platform. Keep `"Installed": false` in y
 
 ## Architecture (For the Curious)
 
-The plugin is built in layers. **CP_ReaperUnrealBridge** is the main component you use; under the hood it uses:
+The plugin is built in layers. **AC_ReaperUnrealBridge** is the main component you use; under the hood it uses:
 
-- **BP_AudioCapture_Comp** (Blueprint): Orchestrates spawning, attaching, stream start/stop, and OSC. The “Place Audio From Reaper” and related logic lives here.
-- **BP_AudioFromReaper** (Blueprint Actor): Holds the engine `AudioCaptureComponent` and a simple visual (e.g. sphere). Spawned at runtime by the component.
+- **BP_AudioCapture** (Blueprint Actor): Holds the engine `AudioCaptureComponent` and a simple visual (e.g. sphere). Spawned at runtime by the component and attached to your actor.
 - **C++**: Helpers for copying SoundClass/Attenuation, sending raw OSC over UDP, and editor nodes like **Get Reaper Action** / **Get OSC Command** with searchable DataTable dropdowns.
 
 You don’t need to modify any of this for normal use; it’s here if you want to understand or extend the plugin.
@@ -199,17 +198,17 @@ You don’t need to modify any of this for normal use; it’s here if you want t
 ```
 ReaperUnrealBridge/
 ├── Content/
-│   ├── CP_ReaperUnrealBridge.uasset   (main component)
-│   ├── BP_AudioCapture_Comp.uasset
-│   ├── BP_AudioFromReaper.uasset
-│   ├── CC_AudioCapture.uasset
-│   ├── ReaperActions_DataTable.uasset
-│   ├── DT_Reaper_OSCList.uasset
-│   ├── M_ReaperLogo.uasset
-│   ├── ReaperLogo.uasset
-│   ├── STRUCT_ActionIDs.uasset
-│   ├── STRUCT_ReaperOSCList.uasset
+│   ├── AC_ReaperUnrealBridge.uasset        (main component)
+│   ├── BP_AudioCapture.uasset              (runtime actor with AudioCaptureComponent)
+│   ├── HelperAssets/
+│   │   ├── CC_AudioCapture.uasset
+│   │   ├── M_ReaperLogo.uasset
+│   │   └── ReaperLogo.uasset
 │   ├── OSC/
+│   │   ├── ReaperActions_DataTable.uasset
+│   │   ├── DT_Reaper_OSCList.uasset
+│   │   ├── STRUCT_ActionIDs.uasset
+│   │   └── STRUCT_ReaperOSCList.uasset
 │   └── Tutorial/
 │       └── LVL_ReaperUnrealBridge_Tutorial.umap
 ├── Source/

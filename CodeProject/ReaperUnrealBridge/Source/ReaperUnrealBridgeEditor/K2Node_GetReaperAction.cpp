@@ -43,7 +43,7 @@ UDataTable* UK2Node_GetReaperAction::GetDataTable() const
 
 FString UK2Node_GetReaperAction::GetDataTablePath() const
 {
-	return TEXT("/ReaperUnrealBridge/ReaperActions_DataTable.ReaperActions_DataTable");
+	return TEXT("/ReaperUnrealBridge/OSC/ReaperActions_DataTable.ReaperActions_DataTable");
 }
 
 /**
