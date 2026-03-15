@@ -1,0 +1,18 @@
+# Unreal build output
+Intermediate/
+Binaries/
+Saved/
+
+# UHT generated files
+*.gen.cpp
+*.generated.h
+
+# VS/Rider project files
+*.sln
+*.suo
+.vs/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
