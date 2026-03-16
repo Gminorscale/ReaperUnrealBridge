@@ -10,7 +10,7 @@ Prototype and test your audio from Reaper directly inside Unreal Engine in real 
 <!-- Badges -->
 ![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.5%2B-black?logo=unrealengine)
 ![Platform](https://img.shields.io/badge/Platform-Windows-blue)
-![License](https://img.shields.io/badge/License-See%20project-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
@@ -35,26 +35,26 @@ Prototype and test your audio from Reaper directly inside Unreal Engine in real 
 ## How It Works
 
 <!-- PLACEHOLDER: Replace with a flow diagram image -->
-![Flow: Unreal triggers OSC → Reaper plays → audio via cable back into Unreal](docs/images/how-it-works.png)
+![Flow: Unreal triggers OSC, Reaper plays, audio via cable back into Unreal](docs/images/how-it-works.png)
 
-1. **Unreal triggers Reaper** — An event fires in your game (weapon shot, door open, anything). The plugin sends an OSC message telling Reaper to play.
-2. **Reaper plays, audio routes back** — Reaper's output goes through a virtual audio cable (e.g. VB-Cable), which Unreal captures as microphone input.
-3. **Unreal spatializes it** — The captured audio is wrapped in Unreal's 3D audio system using your existing SoundClass and Attenuation settings.
+1. **Unreal triggers Reaper** - An event fires in your game (weapon shot, door open, anything). The plugin sends an OSC message telling Reaper to play.
+2. **Reaper plays, audio routes back** - Reaper's output goes through a virtual audio cable (e.g. VB-Cable), which Unreal captures as microphone input.
+3. **Unreal spatializes it** - The captured audio is wrapped in Unreal's 3D audio system using your existing SoundClass and Attenuation settings.
 
-You keep Reaper's processing, mixing, and sound design. Unreal handles the spatialization, game logic, and audio classes. Both do what they're good at.
+You keep Reaper's processing, mixing, and sound design. Unreal handles the spatialization, game logic, and audio classes.
 
 ### Why ReaperUnrealBridge?
 
-- No file exports or imports — hear changes in Reaper instantly inside Unreal
-- One component on any Actor — no engine config, no Game Instance changes
-- Reuses your existing SoundClass and Attenuation — no audio setup from scratch
+- No file exports or imports - hear changes in Reaper instantly inside Unreal
+- One component on any Actor - no engine config, no Game Instance changes
+- Reuses your existing SoundClass and Attenuation - no audio setup from scratch
 - Trigger Reaper actions from Blueprint (play, stop, go to marker, run custom actions)
 
 ---
 
 ## Quick Install
 
-### Step 1 -- Make sure your project has C++ source
+### Step 1 - Make sure your project has C++ source
 
 If your project already has a `Source/` folder, skip to Step 2.
 
@@ -64,7 +64,7 @@ Blueprint-only projects cannot compile plugins. To add source:
 2. Choose any parent class (or **None**) and click **Create Class**.
 3. When prompted, let Visual Studio (or Rider) open and build. The project now has a `Source/` folder and can compile plugins.
 
-### Step 2 -- Add the plugin via Plugin Directories
+### Step 2 - Add the plugin via Plugin Directories
 
 1. In the editor: **Edit > Plugins**.
 2. At the top left, click the folder icon (**Plugin Directories**).
@@ -78,7 +78,7 @@ No project settings, no Game Instance setup.
 
 ## Setup in Reaper
 
-To hear Reaper in Unreal, Reaper's output has to go to a virtual device that Unreal can capture as "microphone" input. The simplest way for most people is VB-Cable (free): https://vb-audio.com/Cable/
+To hear Reaper in Unreal, Reaper's output has to go to a virtual device that Unreal can capture as "microphone" input. The simplest option is VB-Cable (free): https://vb-audio.com/Cable/
 
 1. In Reaper: **Preferences > Device**. Set **Audio output** to **CABLE Input**.
 2. In Windows Sound settings, set your **microphone (input)** to **CABLE Output**. Reaper's output is now what Unreal sees as the mic.
@@ -121,7 +121,7 @@ Set these once and the component can talk to Reaper.
 
 ### Functions You Use
 
-From the **AC Reaper Unreal Bridge** component you only need a small set of functions. The component also has other functions used internally (e.g. restoring sound base volume); those are handled for you and you can ignore them.
+From the **AC Reaper Unreal Bridge** component you only need a small set of functions. The component also has other functions used internally (e.g. restoring sound base volume); those are handled automatically and you can ignore them.
 
 **Main functions to use:**
 
@@ -134,7 +134,7 @@ From the **AC Reaper Unreal Bridge** component you only need a small set of func
 | **OSC_Send_Stop** | Sends OSC to Reaper to stop playback. |
 | **OSC_Send_Action** | Sends a Reaper action by ID (e.g. go to marker, record). Use the **Get Reaper Action** node to get the command ID from the ReaperActions_DataTable. |
 
-**Optional / advanced:** If you open the component's function list you'll see more (e.g. `RestoreSoundSettings`, `ApplyCopiedSoundSettings`, `SetSoundSettings`, `DebugSounds`, `SpawnActor`, `AttachActorToActor`, `StartStream`, `StopStream`, `OSC_Send`). These are used internally or for edge cases. You can use them if you need finer control, but normal workflows only need the six functions above.
+**Optional / advanced:** If you open the component's function list you'll see more (e.g. `RestoreSoundSettings`, `ApplyCopiedSoundSettings`, `SetSoundSettings`, `DebugSounds`, `SpawnActor`, `AttachActorToActor`, `StartStream`, `StopStream`, `OSC_Send`). These are used internally or for edge cases. Normal workflows only need the six functions above.
 
 ---
 
@@ -273,4 +273,10 @@ ReaperUnrealBridge/                          (this repo)
 
 ## License
 
-See the project license.
+ MIT License See [LICENSE](LICENSE) for the full text.
+
+---
+
+## Credits
+
+The C++ source code in this plugin was written with the help of AI tooling (Cursor). Blueprint logic, audio routing, OSC integration, and overall design are by the project author.
