@@ -34,9 +34,6 @@ Prototype and test your audio from Reaper directly inside Unreal Engine in real 
 
 ## How It Works
 
-<!-- PLACEHOLDER: Replace with a flow diagram image -->
-![Flow: Unreal triggers OSC, Reaper plays, audio via cable back into Unreal](docs/images/how-it-works.png)
-
 1. **Unreal triggers Reaper** - An event fires in your game (weapon shot, door open, anything). The plugin sends an OSC message telling Reaper to play.
 2. **Reaper plays, audio routes back** - Reaper's output goes through a virtual audio cable (e.g. VB-Cable), which Unreal captures as microphone input.
 3. **Unreal spatializes it** - The captured audio is wrapped in Unreal's 3D audio system using your existing SoundClass and Attenuation settings.
@@ -101,9 +98,6 @@ If you also want Unreal to trigger actions in Reaper (play, stop, go to marker, 
 
 The heart of the plugin is **AC_ReaperUnrealBridge**. It's a Blueprint component. Add it to the Actor that should drive Reaper (e.g. your weapon, your vehicle). Everything else in the plugin exists to support this component.
 
-<!-- PLACEHOLDER: Replace with a screenshot of the component in the editor (Content Browser or Details panel) -->
-![AC_ReaperUnrealBridge in Unreal Editor](docs/images/component-in-editor.png)
-
 ### Where to Find It
 
 In the Content Browser, expand **Plugins > ReaperUnrealBridge Content**. You'll see the main asset **AC_ReaperUnrealBridge** (Blueprint Class) and the runtime actor **BP_AudioCapture**. The `HelperAssets` and `OSC` folders contain supporting assets (materials, concurrency, data tables, structs, etc.).
@@ -139,9 +133,6 @@ From the **AC Reaper Unreal Bridge** component you only need a small set of func
 ---
 
 ## Example: Weapon Fire
-
-<!-- PLACEHOLDER: Replace with a screenshot or GIF of the Blueprint graph or in-game result -->
-![Weapon fire Blueprint example](docs/images/weapon-fire-example.png)
 
 1. Open **AC_ReaperUnrealBridge**, go to **Variables > Settings**, and set **OSC Ip Adress** and **OSC Port** to match Reaper.
 2. In your weapon Blueprint (e.g. `BP_Weapon`), add **AC_ReaperUnrealBridge** as a component.
