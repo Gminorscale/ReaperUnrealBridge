@@ -21,6 +21,7 @@ Prototype and test your audio from Reaper directly inside Unreal Engine in real 
 - [Setup in Reaper](#setup-in-reaper)
 - [Setup in Unreal: The One Component You Need](#setup-in-unreal-the-one-component-you-need)
 - [Example: Weapon Fire](#example-weapon-fire)
+- [Triggering from an Animation: AN_PlaceReaperInAnimation](#triggering-from-an-animation-an_placereaperinanimation)
 - [Key Assets](#key-assets)
 - [Requirements](#requirements)
 - [FAQ](#faq)
@@ -130,6 +131,17 @@ From the **AC Reaper Unreal Bridge** component you only need a small set of func
 
 **Optional / advanced:** If you open the component's function list you'll see more (e.g. `RestoreSoundSettings`, `ApplyCopiedSoundSettings`, `SetSoundSettings`, `DebugSounds`, `SpawnActor`, `AttachActorToActor`, `StartStream`, `StopStream`, `OSC_Send`). These are used internally or for edge cases. Normal workflows only need the six functions above.
 
+### Combined Node: Reaper Unreal Bridge
+
+For convenience, a single **Reaper Unreal Bridge** Blueprint node is provided that wraps the most common call sequence into one node. It combines:
+
+- **Place Audio From Reaper**
+- **OSC_Send_PlayFromEditCursor**
+- **OSC_Send_Action**
+- **Copy Settings From Sound Base**
+
+Instead of chaining four separate nodes, drop one **Reaper Unreal Bridge** node, connect the component reference to **Target**, fill in the pins, and you're done. Use this when you want a quick, single-node setup. Use the individual functions when you need more control over the order of operations or want to call only some of them.
+
 ---
 
 ## Example: Weapon Fire
@@ -142,7 +154,46 @@ From the **AC Reaper Unreal Bridge** component you only need a small set of func
    - **OSC_Send_PlayFromEditCursor** (tell Reaper to play).
    - **OSC_Send_Action** (e.g. "Go to marker 01"). Use the **Get Reaper Action** node and pick something like "Markers: Gotomarker01" to get the Action ID.
 
+Alternatively, replace all four calls with a single **Reaper Unreal Bridge** node and fill in its pins.
+
 When the weapon fires, Reaper plays, and the audio is captured and spatialized at the weapon's location using the same SoundClass and Attenuation as your reference sound.
+
+---
+
+## Triggering from an Animation: AN_PlaceReaperInAnimation
+
+**AN_PlaceReaperInAnimation** is an Animation Notify that lets you trigger the full Reaper bridge workflow directly from any Animation Sequence or Montage — no Blueprint wiring on the owning actor required.
+
+### How it works
+
+Place the notify on the animation timeline at the frame where the sound should start. When the notify fires, it automatically finds or adds **AC_ReaperUnrealBridge** on the owning actor and runs the configured actions.
+
+### Properties
+
+Select the notify on the timeline to configure it in the Details panel:
+
+**Reaper Settings**
+
+| Property | Type | What it does |
+|----------|------|-------------|
+| **Play From Edit Cursor** | Boolean | If enabled, sends **OSC_Send_PlayFromEditCursor** to Reaper when the notify fires. |
+| **Action ID** | Integer | If set, sends **OSC_Send_Action** with this command ID. Use in combination with or instead of Play From Edit Cursor. |
+| **Sound Class** | Sound Class | SoundClass to apply to the capture. |
+| **Attenuation Settings** | Sound Attenuation | Attenuation asset to apply to the capture. |
+| **Adjust Volume Level** | Float | Volume multiplier applied to the capture (default 1.0). |
+
+**Reaper Copy Source**
+
+| Property | Type | What it does |
+|----------|------|-------------|
+| **Copy Settings From** | Sound Base | If set, copies SoundClass and Attenuation from this asset. **Overrides** the Sound Class and Attenuation Settings properties above. |
+| **Mute Source Sound** | Boolean | If enabled, mutes the source Sound Base when copying its settings. |
+
+> **Note:** If **Copy Settings From** is set, it takes priority over the manually specified **Sound Class** and **Attenuation Settings**. Use **Copy Settings From** when you want to match the audio profile of an existing sound asset, or set **Sound Class** and **Attenuation Settings** directly when you don't have a reference sound to copy from.
+
+### When the owning actor doesn't have the component
+
+If the actor running the animation does not already have **AC_ReaperUnrealBridge** added as a component, the notify adds it automatically at runtime. OSC IP and port will use the class defaults; set them on the component in the editor if possible, or configure the notify to match your Reaper setup.
 
 ---
 
@@ -152,6 +203,7 @@ When the weapon fires, Reaper plays, and the audio is captured and spatialized a
 |-------|------|------|
 | **AC_ReaperUnrealBridge** | Blueprint Class | The main component. Add this to your actors; it runs the important commands. |
 | **BP_AudioCapture** | Blueprint Class | Runtime audio actor with `AudioCaptureComponent`; spawned by the bridge and attached to your actor. |
+| **AN_PlaceReaperInAnimation** | Animation Notify | Drop onto any Animation Sequence or Montage to trigger the bridge from an animation frame. Configurable per-instance in the Details panel. |
 | **HelperAssets/CC_AudioCapture** | Sound Concurrency | Limits to one capture at a time so only one Reaper stream plays. |
 | **HelperAssets/M_ReaperLogo**, **HelperAssets/ReaperLogo** | Material / Texture | Visual helpers used by the plugin. |
 | **OSC/ReaperActions_DataTable** | Data Table | Reaper actions (Command ID, name, category). Used by **Get Reaper Action**. |
