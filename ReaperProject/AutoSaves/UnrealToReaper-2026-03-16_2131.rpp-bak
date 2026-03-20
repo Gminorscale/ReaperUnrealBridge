@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "7.62/win64" 1773700169 0
+<REAPER_PROJECT 0.1 "7.62/win64" 1773693114 0
   RECTAG Value
   RIPPLE 0 1
   GROUPOVERRIDE 0 0 0 0
@@ -17,9 +17,9 @@
   TIMEMODE 1 5 -1 30 0 0 -1 0
   VIDEO_CONFIG 0 0 256
   PANMODE 3
-  CURSOR 248.00569489322825
-  ZOOM 79.36169157037934 19570 0
-  VZOOMEX 0 89
+  CURSOR 300.5
+  ZOOM 28.45878843443046 8243 0
+  VZOOMEX 5 0
   USE_REC_CFG 0
   RECMODE 0
   SMPTESYNC 0 30 100 40 1000 300 0 0 1 0 0
@@ -68,8 +68,8 @@
   SELECTIONSET 0 "Selection set 1"
   TEMPO 120 4 4 0
   PLAYRATE 1 0 0.25 4
-  SELECTION 243.5 250.5
-  SELECTION2 243.5 250.5
+  SELECTION 215 237.64996875
+  SELECTION2 215 237.64996875
   MASTERAUTOMODE 0
   MASTERTRACKHEIGHT 72 0
   MASTERPEAKCOL 16576
@@ -116,14 +116,14 @@
   MARKER 4 237.64996875 "" 1
   MARKER 1 243.76947109293727 Weapon 1 0 1 R {775E6D82-5E10-4221-AD2C-4659CFBEDAC8} 0 1
   MARKER 1 245.07497142478422 "" 1
-  MARKER 1 243.76947109293727 1 8 0 1 R {C2A0C247-A47E-4781-81F2-BD5890FFF756} 0 2
+  MARKER 1 245.99437226107969 !1016 0 0 1 R {C2A0C247-A47E-4781-81F2-BD5890FFF756} 0 2
   MARKER 2 246.42256816112103 Weapon 1 0 1 R {C7667676-8658-4778-9E32-8031D5B11805} 0 1
   MARKER 2 247.72806849296799 "" 1
   MARKER 2 248.00569489322825 !1016 0 0 1 R {4EC85987-3371-4FF2-AC37-0701608020BF} 0 2
   MARKER 3 248.67104598669061 Weapon 1 0 1 R {871DF5A8-25BE-4C25-85E8-F7111EBC3562} 0 1
   MARKER 3 249.69857859850225 "" 1
   MARKER 3 250.00024665821635 !1016 0 0 1 R {A4AA96E4-EB4E-4F08-9427-EAEAD72D71E3} 0 2
-  MARKER 4 271.41140835500215 "" 0 0 1 R {759E9AC0-9AF4-45DE-A7DC-27F8E4C283E8} 0 2
+  MARKER 4 271.41140835500215 "" 8 0 1 R {759E9AC0-9AF4-45DE-A7DC-27F8E4C283E8} 0 2
   MARKER 5 277.19109585500217 "" 0 0 1 R {46DC556A-E07B-4EAE-A8F4-246C0528736C} 0 2
   MARKER 6 283.0275541883355 "" 0 0 1 R {A0DAFD6F-F28D-4127-AC10-2932C6C83874} 0 2
   MARKER 7 287.90620002166878 "" 0 0 1 R {4089A8FE-DD95-4906-B987-C5EBE464D268} 0 2
@@ -225,7 +225,7 @@
       CHANMODE 0
       GUID {ECDD2152-BECC-4207-BD7F-3141A29A3A45}
       <SOURCE WAVE
-        FILE "/media\GasparDeath_03.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\GasparDeath_03.wav"
       >
     >
     <ITEM
@@ -248,7 +248,7 @@
       CHANMODE 0
       GUID {FD8F8685-D62C-4008-A937-7853A6903B7F}
       <SOURCE WAVE
-        FILE "/media\GasparDeath_04.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\GasparDeath_04.wav"
       >
     >
     <ITEM
@@ -271,7 +271,7 @@
       CHANMODE 0
       GUID {35156212-7A32-4047-8686-8FB1F66E881F}
       <SOURCE WAVE
-        FILE "/media\GasparDeath_05.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\GasparDeath_05.wav"
       >
     >
     <ITEM
@@ -294,7 +294,7 @@
       CHANMODE 0
       GUID {43B9D051-8E2F-4293-A639-790A24EE614C}
       <SOURCE WAVE
-        FILE "/media\GasparDeath_06.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\GasparDeath_06.wav"
       >
     >
   >
@@ -387,7 +387,7 @@
     BUSCOMP 0 0 0 0 0
     SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0 0
     FIXEDLANES 9 0 0 0 0
-    SEL 0
+    SEL 1
     REC 0 4256 0 0 0 0 0 0
     VU 2
     TRACKHEIGHT 0 0 0 0 0 0 0
@@ -439,7 +439,7 @@
       CHANMODE 0
       GUID {2DB45BE0-363F-4EC9-BD06-40C0837F7A7F}
       <SOURCE WAVE
-        FILE "/media\Fight, Bodyfall, Wooden Debris, Table, Furniture, Short Bodyfall 02 SND120822.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Fight, Bodyfall, Wooden Debris, Table, Furniture, Short Bodyfall 02 SND120822.wav"
       >
     >
   >
@@ -488,7 +488,7 @@
       CHANMODE 0
       GUID {BAB7F670-AFE0-4133-9603-82A30AEC0454}
       <SOURCE WAVE
-        FILE "/media\EXPLO Hand Grenade Snap Crackle x3.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\EXPLO Hand Grenade Snap Crackle x3.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\EXPLO Hand Grenade Snap Crackle x3.wav"
@@ -542,7 +542,7 @@
       CHANMODE 0
       GUID {6CFE67A8-715C-4F47-883A-D9D0332F4DFB}
       <SOURCE WAVE
-        FILE "/media\Destruction, Collapse, Blow Up Wooden Structure, Building Demolition, Small, Explosion, Close SND122528.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Destruction, Collapse, Blow Up Wooden Structure, Building Demolition, Small, Explosion, Close SND122528.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Destruction, Collapse, Blow Up Wooden Structure, Building Demolition, Small, Explosion, Close SND122528.wav"
@@ -560,7 +560,7 @@
     IPHASE 0
     PLAYOFFS 0 1
     ISBUS 1 1
-    BUSCOMP 0 0 0 0 0
+    BUSCOMP 2 0 0 0 0
     SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0 0
     FIXEDLANES 9 0 0 0 0
     LANEREC -1 -1 -1 0
@@ -627,7 +627,7 @@
       CHANMODE 0
       GUID {C8E749EA-A74F-4CC8-89E4-F8B4D0A34C49}
       <SOURCE WAVE
-        FILE "/media\EXPLO C4 Distant Deep x5.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\EXPLO C4 Distant Deep x5.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\Dropbox\Sound Libraries\Explosion Sounds - GAD TALK\EXPLO C4 Distant Deep x5.wav"
@@ -641,8 +641,8 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0.00736059466615 0 0 0 0 0
-      MUTE 1 0
-      SEL 1
+      MUTE 0 0
+      SEL 0
       YPOS 0 1 0
       IGUID {64191CFC-9EBC-4055-A09F-920FC978C527}
       IID 88569
@@ -653,7 +653,7 @@
       CHANMODE 0
       GUID {479D1C23-F317-49FD-AE0E-6CC78181E106}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -727,7 +727,7 @@
       CHANMODE 0
       GUID {56F02BEE-09C4-424D-B7CF-2E6C09A3139E}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -753,7 +753,7 @@
       CHANMODE 0
       GUID {A2A7A07B-2909-4D2E-9CC5-D448B5B42A37}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -768,7 +768,7 @@
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
       MUTE 0 0
-      SEL 1
+      SEL 0
       YPOS 0 1 0
       IGUID {E39100ED-0DC9-4FC6-90A5-E411E8CEE563}
       IID 88570
@@ -779,7 +779,7 @@
       CHANMODE 0
       GUID {81CE9D48-66E7-4D58-B8BA-D0E4B8F86B57}
       <SOURCE WAVE
-        FILE "/media\08-Body-260313_2113-jsfx.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\08-Body-260313_2113-jsfx.wav"
       >
     >
   >
@@ -829,16 +829,16 @@
         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
-        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
+        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
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAeNrtWc1rJEUUf1ERRSHmIqhkGRzQBBa6qzP5WBBmKpNJNrATx0xIWlCXynRlptie
         qrGqJpvJYV38wMv6cVUQPOjBf0DciwYProKSLK6yB5E9iKy7HhRWETxEenq60xkynWSTXYJMnd68V/2+X9WPKciP23Z+ShJed4nMjyuqNeNlBTgrhVJimcq8cCgoK+WM
         G6KkI4K5Ro2Cwpy4ogx4QjYWqMZLS7Sk1TSv1fUUYRxQDz7F+BlAgLeYzs311UtX1kbW8LN1HTI3/1z/91V6/xpOel/NU6mY4JCCe/sA56cnpgtSlCWpZiuEl2mOk0WX
         emq3sbNE07KQbJVKT5ZzmBayyFZpjqgGKISGrOMj1nBU0uKOphDgbF1KynVBUkX19ASoyZVzC0QCLrj1MuNzQriLRGaF65Kaog6gTXxqtlhzmda0qQyBA976+rVMm8Rq
@@ -850,16 +850,16 @@
         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
-        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
+        Mcd8zLEad+DFHUVxh0bceMcNYtzIbGvMoW5jdhvzyDSmYeOSZsvUf8jyX7u8Tmy9b0WFM6RKQYFh56mmUllgLzBHV/JgF0Vdlqj3wBZ5K0JgGMa5/wByqnhoAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAADQTmv4fwAAYNBOa/h/AADMlU5r+H8AADDATmv4fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZNKNcAmwCA
+        AAAAAAAAAACg9tWGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAda/h/AABgcB1r+H8AAMw1HWv4fwAAMGAda/h/AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfk0Q1wCcAIAAAAAAAAAAACD31YYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4A1r+H8AAGDgDWv4fwAA
+        zKUNa/h/AAAw0A1r+H8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB2TRjXAJ0AgAAAAAAAAAAAoPfVhgAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAADQR8b5fwAAYNBHxvl/AADMlUfG+X8AADDAR8b5fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI5NANcAngCA
+        AAAAAAAAAAAg+NWGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABALAvh/AABgEAsC+H8AAIxaCgL4fwAAMAALAvh/AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhk0I1wCfAIAAAAAAAAAAAKD41YYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcOtsAAAAAGBw62wAAAAA
+        3PDpbAAAAAAwYOtsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeTfDWAKAAgAAAAAAAAAAAIPnVhgAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAgBmv4fwAAYCAGa/h/AAAMwwVr+H8AADAQBmv4fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
         ADAAAAAAAA==
       >
       PRESETNAME 0
@@ -897,7 +897,7 @@
       CHANMODE 0
       GUID {821999BC-897D-4D44-9D0F-16048DDBDD03}
       <SOURCE WAVE
-        FILE "/media\METLCrsh_Metal Debris In Drawer Rattle Short 100K_NdHM_PRSNL.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\METLCrsh_Metal Debris In Drawer Rattle Short 100K_NdHM_PRSNL.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\METLCrsh_Metal Debris In Drawer Rattle Short 100K_NdHM_PRSNL.wav"
@@ -923,7 +923,7 @@
       CHANMODE 0
       GUID {480D62B3-EF15-4E9B-97C1-9D76A6B8387C}
       <SOURCE WAVE
-        FILE "/media\08-Body-260313_2113-jsfx.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\08-Body-260313_2113-jsfx.wav"
       >
     >
     <ITEM
@@ -946,7 +946,7 @@
       CHANMODE 0
       GUID {41D72E11-B703-47B0-895F-25F75ED14F23}
       <SOURCE WAVE
-        FILE "/media\08-Body-260313_2113-jsfx.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\08-Body-260313_2113-jsfx.wav"
       >
     >
   >
@@ -1001,7 +1001,7 @@
       CHANMODE 0
       GUID {B39B7F6B-91D9-46D5-AC02-FD5F7E89069B}
       <SOURCE WAVE
-        FILE "/media\08-Body-260313_2113-jsfx-01.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\08-Body-260313_2113-jsfx-01.wav"
       >
     >
     <ITEM
@@ -1023,7 +1023,7 @@
       CHANMODE 0
       GUID {949AE6F6-03B1-49CB-8FCA-AA1B0FA89CC2}
       <SOURCE WAVE
-        FILE "/media\08-Body-260313_2113-jsfx-02.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\08-Body-260313_2113-jsfx-02.wav"
       >
     >
     <ITEM
@@ -1034,8 +1034,8 @@
       ALLTAKES 0
       FADEIN 0 0.13589728599233 0 0 0 0 0
       FADEOUT 0 0.50671510395061 0 0 0 0 0
-      MUTE 1 0
-      SEL 1
+      MUTE 0 0
+      SEL 0
       YPOS 0 1 0
       IGUID {C4A904F5-9E96-494E-B787-809A9E3E987F}
       IID 88571
@@ -1046,7 +1046,7 @@
       CHANMODE 0
       GUID {4103978F-A5DD-47AF-B3D8-FC1F52715B59}
       <SOURCE WAVE
-        FILE "/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
@@ -1099,7 +1099,7 @@
       CHANMODE 0
       GUID {EC425289-1489-440F-81D0-19C16953A21F}
       <SOURCE WAVE
-        FILE "/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
@@ -1113,7 +1113,7 @@
       ALLTAKES 0
       FADEIN 0 0.13589728599233 0 0 0 0 0
       FADEOUT 0 0.50671510395061 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {82EA3112-C344-45E2-BD15-B7270F1CDAED}
@@ -1125,7 +1125,7 @@
       CHANMODE 0
       GUID {FE502D07-B434-47BB-92B5-475CE164F64C}
       <SOURCE WAVE
-        FILE "/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
@@ -1151,7 +1151,7 @@
       CHANMODE 0
       GUID {B2743E96-41AF-48D3-89AE-4EBDF1189006}
       <SOURCE WAVE
-        FILE "/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\DSGNWhsh_Modern Rumble subtle zappy_Joachim Nyholm_GSG.wav"
@@ -1165,8 +1165,8 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
-      SEL 1
+      MUTE 0 0
+      SEL 0
       YPOS 0 1 0
       IGUID {142E7480-8B53-4710-970C-368A2092B3AB}
       IID 88572
@@ -1177,7 +1177,7 @@
       CHANMODE 0
       GUID {C776C74D-38A1-4E7F-9867-94441E570BBC}
       <SOURCE FLAC
-        FILE "/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
       >
       <TAKEFX
         WNDRECT 728 146 1198 675
@@ -1254,7 +1254,7 @@
       CHANMODE 0
       GUID {CA2AA570-92A9-49EF-8BE1-BE233CA6602C}
       <SOURCE FLAC
-        FILE "/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\Dropbox\Sound Libraries\Own recordings\Til minde om Marcs gamle køkken\Til minde om Marcs gamle køkken\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
@@ -1280,7 +1280,7 @@
       CHANMODE 0
       GUID {26D6726A-E82D-434C-9572-CFC689167E0D}
       <SOURCE FLAC
-        FILE "/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
       >
       <TAKEFX
         WNDRECT 728 146 1198 675
@@ -1312,7 +1312,7 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {DA97A5FE-6AF4-4503-8178-4BF7347E4E98}
@@ -1324,7 +1324,7 @@
       CHANMODE 0
       GUID {3EDC0DF3-2428-425C-9446-74EF1F2B3793}
       <SOURCE FLAC
-        FILE "/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\WOODImpt_Chipwood Plate Hammer Hole 100K_NdHM_PRSNL.flac"
       >
       <TAKEFX
         WNDRECT 728 146 1198 675
@@ -1356,8 +1356,8 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0.25543648236689 0 0 0 0 0
-      MUTE 1 0
-      SEL 1
+      MUTE 0 0
+      SEL 0
       YPOS 0 1 0
       IGUID {93DF99FD-672E-4BEC-9F82-59BD942B5D75}
       IID 88573
@@ -1368,7 +1368,7 @@
       CHANMODE 0
       GUID {6D62C04E-CC90-405B-A6E7-573F2B1BB860}
       <SOURCE WAVE
-        FILE "/media\Feedback loop sfx-027.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Feedback loop sfx-027.wav"
       >
       <PITCHENV
         EGUID {4B8DD0C1-9AFE-4E3C-A310-E08C41922B55}
@@ -1400,7 +1400,7 @@
     SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0 0
     FIXEDLANES 9 0 0 0 0
     LANEREC -1 -1 -1 0
-    SEL 1
+    SEL 0
     REC 0 4256 0 0 0 0 0 0
     VU 2
     TRACKHEIGHT 0 0 0 0 0 0 0
@@ -1462,7 +1462,7 @@
       CHANMODE 0
       GUID {67D0F2E1-4DD9-4BD7-8EC2-45DA6469D770}
       <SOURCE WAVE
-        FILE "/media\Feedback loop sfx-021.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Feedback loop sfx-021.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\Dropbox\Sound Libraries\Own recordings\Feedback Loops\Feedback loop sfx-021.wav"
@@ -1488,7 +1488,7 @@
       CHANMODE 0
       GUID {004B21FB-DD1D-4461-BB61-3D5B937F1D75}
       <SOURCE WAVE
-        FILE "/media\Feedback loop sfx-027.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Feedback loop sfx-027.wav"
       >
       <PITCHENV
         EGUID {5827B93D-C467-4D32-A25E-7CC9FF66CFC0}
@@ -1524,7 +1524,7 @@
       CHANMODE 0
       GUID {336C6ACF-B64C-405D-B5F3-72C79904815F}
       <SOURCE WAVE
-        FILE "/media\Feedback loop sfx-027.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Feedback loop sfx-027.wav"
       >
       <PITCHENV
         EGUID {3EC79106-E23D-4200-8A27-8304B4372FB1}
@@ -1560,7 +1560,7 @@
       CHANMODE 0
       GUID {9DFEA68F-5B95-43EA-967B-0D5A7CC49D50}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1640,7 +1640,7 @@
       CHANMODE 0
       GUID {1D278A43-DE4C-4C4E-954F-441445A32D69}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1666,7 +1666,7 @@
       CHANMODE 0
       GUID {D92F2091-DE61-4925-BEA0-A7BB64F6568E}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1692,7 +1692,7 @@
       CHANMODE 0
       GUID {14F7605B-44E1-4511-A416-FD3532772CAA}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1718,7 +1718,7 @@
       CHANMODE 0
       GUID {5303B6AA-2493-4F7F-991D-F58E0B74EC75}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1744,7 +1744,7 @@
       CHANMODE 0
       GUID {D434B55B-1E53-448C-A982-B3FA11EFCBFF}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1770,7 +1770,7 @@
       CHANMODE 0
       GUID {8D786D2B-D02F-4A9F-A88B-E5F7345411BC}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1796,7 +1796,7 @@
       CHANMODE 0
       GUID {8BFE8AB7-0AE2-4D51-AB2F-B5AC157F17BA}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1822,7 +1822,7 @@
       CHANMODE 0
       GUID {C3127146-9D0F-4D62-A81B-E920025EDE3F}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1848,7 +1848,7 @@
       CHANMODE 0
       GUID {D4103557-4169-44DC-A988-57F9A81CA070}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1874,7 +1874,7 @@
       CHANMODE 0
       GUID {6EDF1693-E406-4954-85B6-40A7A092A6A8}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1900,7 +1900,7 @@
       CHANMODE 0
       GUID {B2DD9B70-5CEC-4184-BFA4-DFA99F60C3B2}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1926,7 +1926,7 @@
       CHANMODE 0
       GUID {BE25BADE-4790-46EB-AFC3-F28BF1CD165D}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1952,7 +1952,7 @@
       CHANMODE 0
       GUID {E2490CD9-86E4-4C5C-9962-9C33CC791056}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -1978,7 +1978,7 @@
       CHANMODE 0
       GUID {6B7DB92D-353D-4C44-8DBF-C82B19EE4F70}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -2004,7 +2004,7 @@
       CHANMODE 0
       GUID {603C8AFD-7AD4-40D7-986B-7AFB2247D407}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -2030,7 +2030,7 @@
       CHANMODE 0
       GUID {95484B07-D928-4AB6-883E-6072F5CF500F}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -2056,7 +2056,7 @@
       CHANMODE 0
       GUID {F53560E5-7785-4641-91FA-F7FAD299B783}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -2082,7 +2082,7 @@
       CHANMODE 0
       GUID {10674B8B-5853-4173-A67C-CA949629FB72}
       <SOURCE WAVE
-        FILE "/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\UIGlitch_Discman Glitch Clicks A Spring Hit_MH_Raw Buffers.wav"
@@ -2108,7 +2108,7 @@
       CHANMODE 0
       GUID {D3929232-3B22-4117-BECB-6C528686A800}
       <SOURCE WAVE
-        FILE "/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
       >
     >
   >
@@ -2164,7 +2164,7 @@
       CHANMODE 0
       GUID {CC3C7CA6-EA95-4876-B9F0-F3F449783344}
       <SOURCE WAVE
-        FILE "/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
       >
     >
     <ITEM
@@ -2187,7 +2187,7 @@
       CHANMODE 0
       GUID {D8A8B18D-B7BA-4A5F-AAB9-5CC7EECEF279}
       <SOURCE WAVE
-        FILE "/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
       >
     >
     <ITEM
@@ -2210,7 +2210,7 @@
       CHANMODE 0
       GUID {BC59331B-3646-403C-9F07-2B0921FF1961}
       <SOURCE WAVE
-        FILE "/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
       >
     >
     <ITEM
@@ -2233,7 +2233,7 @@
       CHANMODE 0
       GUID {7F8C2E96-9430-4898-8E4D-A9C1DD9EF1ED}
       <SOURCE WAVE
-        FILE "/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Scifi, Weapon, Futuristic, Plasma, Gunshot, Ricochet 01 SND123116.wav"
       >
     >
   >
@@ -2289,7 +2289,7 @@
       CHANMODE 0
       GUID {CF05A17C-A456-42C7-839D-BB9DB36DF289}
       <SOURCE WAVE
-        FILE "/media\ModernExplosionMedium_01.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\ModernExplosionMedium_01.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\ModernExplosionMedium_01.wav"
@@ -2330,7 +2330,7 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0.89117450866092 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {58AFCBAF-6B86-4378-BEE8-0161B8C450CB}
@@ -2342,7 +2342,7 @@
       CHANMODE 0
       GUID {ADD4F677-D087-4A65-AE0E-951159FE5961}
       <SOURCE WAVE
-        FILE "/media\ModernExplosionMedium_01.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\ModernExplosionMedium_01.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\ModernExplosionMedium_01.wav"
@@ -2368,7 +2368,7 @@
       CHANMODE 0
       GUID {C67DF9EE-33E7-44F2-944D-8C085C214D96}
       <SOURCE WAVE
-        FILE "/media\ModernExplosionMedium_01.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\ModernExplosionMedium_01.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\ModernExplosionMedium_01.wav"
@@ -2382,7 +2382,7 @@
       ALLTAKES 0
       FADEIN 0 0.08324454111548 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {66515F13-E4FB-42EB-A71A-5E918B0A9652}
@@ -2398,7 +2398,7 @@
         STARTPOS 0.02106412475013
         OVERLAP 0.01
         <SOURCE FLAC
-          FILE "/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
+          FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
         >
       >
       <EXT
@@ -2446,7 +2446,7 @@
       ALLTAKES 0
       FADEIN 0 0.08324454111548 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {C3676AC8-2406-4DA8-A676-AD8E7DEF3364}
@@ -2462,7 +2462,7 @@
         STARTPOS 0.02106412475013
         OVERLAP 0.01
         <SOURCE FLAC
-          FILE "/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
+          FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
         >
       >
       <EXT
@@ -2493,7 +2493,7 @@
         STARTPOS 0.02106412475013
         OVERLAP 0.01
         <SOURCE FLAC
-          FILE "/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
+          FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\DRWRMetl_Drawer With Metal Debris Open And Shut 100K_NdHM_PRSNL.flac"
         >
       >
       <EXT
@@ -2520,7 +2520,7 @@
       CHANMODE 0
       GUID {241E9FA6-7CA9-47E0-A490-5343149171AD}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -2620,7 +2620,7 @@
       CHANMODE 0
       GUID {41633357-FF4E-4A71-A1E5-AB58076A4219}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -2646,7 +2646,7 @@
       CHANMODE 0
       GUID {B7F29715-66E3-44E0-92BD-AD381B236388}
       <SOURCE WAVE
-        FILE "/media\4CH001M.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\4CH001M.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\4CH001M.wav"
@@ -2664,7 +2664,7 @@
     IPHASE 0
     PLAYOFFS 0 1
     ISBUS 1 1
-    BUSCOMP 0 0 0 0 0
+    BUSCOMP 2 0 0 0 0
     SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0 0
     FIXEDLANES 9 0 0 0 0
     LANEREC -1 -1 -1 0
@@ -2699,7 +2699,7 @@
       CHANMODE 0
       GUID {48356D4A-9FF2-46DF-B159-CF4E7CB94E07}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Stone Derbris SND56493.wav"
@@ -2752,7 +2752,7 @@
       CHANMODE 0
       GUID {06CAFE90-B0D4-4471-BAF3-EF8B2BA77E9D}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Stone Derbris SND56493.wav"
@@ -2766,7 +2766,7 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       YPOS 0 1 0
       IGUID {DF3BC6EC-0E2C-427D-9229-276775107C60}
@@ -2778,7 +2778,7 @@
       CHANMODE 0
       GUID {0057FE5C-CB8F-46A3-855C-B0FF724C5689}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Stone Derbris SND56493.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Stone Derbris SND56493.wav"
@@ -2804,7 +2804,7 @@
       CHANMODE 0
       GUID {7582DB40-E828-4BC5-9E8D-199374A164A3}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
@@ -2845,7 +2845,7 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       IGUID {E1338D2A-57FF-4CFD-8FED-5DDB3A98F33C}
       IID 88543
@@ -2856,7 +2856,7 @@
       CHANMODE 0
       GUID {A0409CE3-E821-4D62-958A-1F87DD4F6A06}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
@@ -2870,7 +2870,7 @@
       ALLTAKES 0
       FADEIN 0 0 0 0 0 0 0
       FADEOUT 0 0 0 0 0 0 0
-      MUTE 1 0
+      MUTE 0 0
       SEL 0
       IGUID {0F569E5F-4AE0-4B03-AAEC-D40CCAD20ABD}
       IID 88555
@@ -2881,7 +2881,7 @@
       CHANMODE 0
       GUID {D224ECAF-35A0-44CD-A5A6-702117ABE8BD}
       <SOURCE WAVE
-        FILE "/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\/media\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Bullets, Ricochet, Metal, Small, Tonal SND56498.wav"
@@ -4222,7 +4222,7 @@
       CHANMODE 0
       GUID {33051C5A-5B54-4A30-884B-35EEE44A5915}
       <SOURCE WAVE
-        FILE "media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
@@ -4247,7 +4247,7 @@
       CHANMODE 0
       GUID {7506E2F5-34AA-49E7-A891-E117BBC4B963}
       <SOURCE WAVE
-        FILE "media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
@@ -4272,7 +4272,7 @@
       CHANMODE 0
       GUID {515B3DED-142F-4D9F-B0E5-ADDA3C482AEC}
       <SOURCE WAVE
-        FILE "media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Wings, Bird, Foley, Small, Take, Off, Away, Variations SND109532.wav"
@@ -4330,7 +4330,7 @@
       CHANMODE 0
       GUID {8AD1DF2E-9638-4D3D-BD38-A6C46B015560}
       <SOURCE WAVE
-        FILE "media\Birds, Bird Of Prey, Hawk, Monkey Catch, Bird Singing Close SND53865.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Birds, Bird Of Prey, Hawk, Monkey Catch, Bird Singing Close SND53865.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Birds, Bird Of Prey, Hawk, Monkey Catch, Bird Singing Close SND53865.wav"
@@ -4387,7 +4387,7 @@
       CHANMODE 0
       GUID {BDB1B651-8353-47A3-B995-3CA41A581DB5}
       <SOURCE WAVE
-        FILE "media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
@@ -4412,7 +4412,7 @@
       CHANMODE 0
       GUID {1D13AFB6-5A5F-4684-9AE1-A1A98069F0CC}
       <SOURCE WAVE
-        FILE "media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
@@ -4437,7 +4437,7 @@
       CHANMODE 0
       GUID {9D1B61E2-FA2F-4814-9F92-166DAC5138AD}
       <SOURCE WAVE
-        FILE "media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
@@ -4462,7 +4462,7 @@
       CHANMODE 0
       GUID {335CFFFF-8E6C-4978-AAC3-E18E85FD585F}
       <SOURCE WAVE
-        FILE "media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
+        FILE "Z:\gits\ReaperUnrealBridge\ReaperProject\media\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
       >
       <EXT
         ORIGINAL_FILENAME "C:\Users\danne\AppData\Roaming\Soundly\Soundly Audio\Birds, Bird Of Prey, Laughing Falcon Bird Sings SND53836.wav"
@@ -4496,37 +4496,6 @@
     MAINSEND 1 0
   >
   <EXTENSIONS
-    <SWSAUTOCOLOR
-      {00000000-0000-0000-0000-000000000000} 0 "" "" ""
-      {211115D2-83B0-4E47-814F-B86121E9B792} 51803653 "" "" ""
-      {E416848F-01EA-40BE-8520-4198F1EE13F0} 63413132 "" "" ""
-      {3E9C96A6-9484-484E-93F5-5F2801C406DA} 60421118 "" "" ""
-      {09A74000-576F-4113-85B6-784EA421A2AD} 60421118 "" "" ""
-      {7434DD01-C8A4-417A-BC11-0C19C9B45A83} 60421118 "" "" ""
-      {D045584F-A031-4286-944E-59C42BD80FFA} 52933771 "" "" ""
-      {0C98FA81-0D00-4E4D-9A04-F0D34A13FE3F} 62123873 "" "" ""
-      {FC764479-EB96-4257-B7E0-D4B79F77BAAA} 61353105 "" "" ""
-      {5CF61F42-204C-4106-A75A-3CCCC6B2960B} 62123873 "" "" ""
-      {BDCF03FA-3EB8-48FD-8DF4-F6E9862C395F} 66626681 "" "" ""
-      {010145A0-0A1B-4E26-9F53-9044C91E5847} 66626681 "" "" ""
-      {53C57B1F-3F6A-48EA-8D28-20B10817ACBC} 66626681 "" "" ""
-      {8511AAA4-2B49-4EC2-929C-D2AD5F8DAC89} 66626681 "" "" ""
-      {86E1AAC6-145B-410B-9435-FED76FC10A7A} 66626681 "" "" ""
-      {CED6D7CA-C535-4EE6-AE9F-545EF806D89A} 66626681 "" "" ""
-      {8FCD2FA6-D700-4E0C-9D96-62CC6733A845} 62123873 "" "" ""
-      {81BA959B-60F7-4DE6-A7C2-16756B5BE1A9} 57074799 "" "" ""
-      {4B87A46F-3505-49D9-BD41-019C0BAAB3A1} 57074799 "" "" ""
-      {3A9EAA1B-F6D8-431C-99A3-8A8CDE5703B4} 57074799 "" "" ""
-      {A8D9185E-E3ED-4D21-9DB7-743BA4929DFA} 58989038 "" "" ""
-      {0DD237E1-98FB-44BB-9E5C-794D306BF1A0} 56883948 "" "" ""
-      {A6B77555-4A7A-4934-A560-AFAD270080DE} 52489635 "" "" ""
-      {159558E5-B75C-444A-BB22-43F7A4D923E8} 56361116 "" "" ""
-      {F22A8511-E230-48E4-B49D-7A41FB0CC07A} 56870893 "" "" ""
-      {14FF444A-B68F-4FB7-9224-7D0B6A3EE9E6} 56870893 "" "" ""
-      {24D7EBD8-BB4D-4038-8D14-7B252E6843DA} 60430001 "" "" ""
-      {A8D1EF19-0A16-4750-A986-54820FFB52CB} 52286686 "" "" ""
-      {7C34508A-1164-4C55-BA42-87A94024F164} 57861487 "" "" ""
-    >
     <BR_CURSOR_POS 00
       216.00000000000000
     >
